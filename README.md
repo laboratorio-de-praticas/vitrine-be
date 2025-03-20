@@ -1,98 +1,113 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Laboratório de Práticas: _Vitrine - Backend_
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+## Descrição
+API desenvolvida com o framework Nest.js que visa gerenciar requisições HTTP com o objetivo de APRESENTAR estudantes que estão concorrendo à presidência de suas respectivas classes. Através de QR codes únicos cada eleitor é encaminhado para a página de votação correspondente ao candidato escolhido, garantindo transparência e acessibilidade durante o processo eleitoral da Fatec. Integra o _Sistema de Votação para a Faculdade_.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Requisitos do Sistema
+- Node.js: v22.x (recomendado com base nas dependências)
+- npm: v10.x (recomendado)
+- NestJS: v11.0.0 (@nestjs/cli v11.0.0)
+- reflect-metadata (v0.2.2): Biblioteca para suporte a metadados e decoradores
+- rxjs (v7.8.1): Biblioteca para programação reativa
 
-## Description
+## Bibliotecas Utilizadas
+- **@nestjs/common (v11.0.1)**: Framework principal do NestJS que fornece decoradores, filtros, pipes e outras funcionalidades essenciais
+- **@nestjs/config (v4.0.1)**: Módulo de configuração para gerenciamento de variáveis de ambiente
+- **@nestjs/core (v11.0.1)**: Núcleo do framework NestJS
+- **@nestjs/platform-express (v11.0.1)**: Adaptador para o framework Express
+- **reflect-metadata (v0.2.2)**: Biblioteca para suporte a metadados e decoradores
+- **rxjs (v7.8.1)**: Biblioteca para programação reativa
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Ferramentas de Desenvolvimento
 
-## Project setup
+- **TypeScript (v5.7.3)**: Linguagem que adiciona tipagem estática ao JavaScript, melhorando a segurança e a manutenção do código
+- **Jest (v29.7.0)**: Framework de testes JavaScript com foco em simplicidade e suporte para testes - unitários e de integração
+- **Prettier (v3.4.2)**: Formatador de código opinativo que garante consistência no estilo de código em todo o projeto
+- **ESLint (v9.18.0)**: Ferramenta de análise estática para identificar padrões problemáticos no código TypeScript
 
+## Configuração do Ambiente
+
+### Instalação
+1. Clone o repositório:
 ```bash
-$ npm install
+git clone https://github.com/laboratorio-de-praticas/vitrine-be.git
+cd vitrine-be
 ```
 
-## Compile and run the project
-
+2. Instale as dependências:
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+npm install
+# ou
+yarn install
 ```
 
-## Run tests
-
+3. Configure as variáveis de ambiente:
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+cp .env.example .env
+# Edite o arquivo .env com suas configurações locais
 ```
 
-## Deployment
-
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
-
+### Execução
+Para iniciar o servidor em modo de desenvolvimento:
 ```bash
-$ npm install -g mau
-$ mau deploy
+npm run start:dev
+# ou
+yarn start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+O servidor estará rodando em `http://localhost:3000`
 
-## Resources
+## Scripts Disponíveis
+- `npm run build`: Compila o projeto usando o Nest
+- `npm run format`: Formata o código usando Prettier
+- `npm run start`: Inicia o servidor em modo normal
+- `npm run start:dev`: Inicia o servidor em modo de desenvolvimento com hot-reload
+- `npm run start:debug`: Inicia o servidor em modo de depuração
+- `npm run start:prod`: Inicia o servidor em modo de produção
+- `npm run lint`: Executa o ESLint para correção de código
+- `npm run test`: Executa os testes unitários
+- `npm run test:watch`: Executa os testes em modo observador
+- `npm run test:cov`: Executa os testes com cobertura
+- `npm run test:debug`: Executa os testes em modo de depuração
+- `npm run test:e2e`: Executa os testes end-to-end
 
-Check out a few resources that may come in handy when working with NestJS:
+## Estrutura do Projeto (placeholder)
+```
+src/
+├── controllers/     # Controladores da aplicação
+├── dto/             # Objetos de transferência de dados
+├── entities/        # Entidades do banco de dados
+├── modules/         # Módulos NestJS
+├── providers/       # Provedores de serviços
+├── middlewares/     # Middlewares personalizados
+├── repositories/    # Repositórios para acesso a dados
+├── services/        # Serviços de negócios
+├── utils/           # Funções utilitárias
+└── main.ts          # Ponto de entrada da aplicação
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+## API Endpoints
+[EM DESENVOLVIMENTO]
 
-## Support
+## Licença
+MIT License
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+Copyright (c) 2025 Projeto Vitrine
 
-## Stay in touch
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
