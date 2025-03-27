@@ -36,6 +36,9 @@ export class Evento{
     @Column()
     curso_semestre: String
 
+    @Column() 
+    urlFoto: string;
+
     @OneToMany(() => Candidato, (candidato) => candidato.evento)
     candidatos: Candidato[]
 

@@ -21,4 +21,10 @@ export class VitrineController {
     async findTv(@Request() req): Promise<Evento[]> {
         return await this.vitrineService.findTv(req.user);
     }
+
+    @Get()
+    @UseGuards(AuthGuard)
+    async findEventoAtivo(): Promise<{ tituloEvento: string; urlFoto: string; candidatos: string[] }[]> {
+      return await this.vitrineService.findEventoAtivo();
+    }
 }

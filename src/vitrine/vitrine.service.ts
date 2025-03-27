@@ -35,4 +35,26 @@ export class VitrineService {
       return await queryBuilder.getMany();
     }
 
+    async findEventoAtivo(): Promise<{ urlFoto: string; candidatos: string[]; tituloEvento: string }[]> {
+      const SALA_DO_ALUNO = 'nome_da_sala';
+    
+      const eventos = await this.eventoRepository
+        .createQueryBuilder("evento")
+        .leftJoinAndSelect("evento.candidatos", "candidato")
+        .where("evento.tipo_evento = :tipo_evento", { tipo_evento: TipoEvento.INTERNO })
+        .andWhere("evento.status = :status", { status: StatusEvento.ATIVO })
+        .andWhere("evento.sala = :sala", { sala: SALA_DO_ALUNO })
+        .select([
+          "evento.urlFoto",  
+          "evento.nome",
+          "candidato.nome" 
+        ])
+        .getMany();
+    
+        return eventos.map(evento => ({
+          urlFoto: String(evento.urlFoto),
+          candidatos: evento.candidatos.map(c => String(c.nome)), 
+          tituloEvento: String(evento.nome)
+        }));                
+    }    
 }
