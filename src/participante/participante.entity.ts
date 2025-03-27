@@ -1,17 +1,16 @@
 import { Alunos } from "src/aluno/aluno.entity";
 import { Eventos } from "src/evento/evento.entity";
-import { Participantes } from "src/participante/participante.entity";
-import { Projetos } from "src/projeto/projeto.entity";
+import { Visitantes } from "src/visitante/visitante.entity";
 import { Votos } from "src/votos/voto.entity";
 import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Candidato{
+export class Participantes{
     @PrimaryGeneratedColumn()
     id: number
 
     @Column({length: 255})
-    nome: String
+    nome_social: String
 
     @Column()
     data_alteracao: Date
@@ -19,22 +18,21 @@ export class Candidato{
     @Column()
     data_criacao: Date
 
-    @Column({length: 255})
-    situacao_candidato: String
+    @Column()
+    situacao_votante: String
 
-    @Column({length: 255})
-    qrCode: String
+    @Column()
+    avaliador: boolean
 
-    @ManyToOne(() => Eventos, (evento) => evento.candidatos)
+    @ManyToOne(() => Eventos, (evento) => evento.participantes)
     evento: Eventos
 
     @ManyToOne(() => Alunos, (alunos) => alunos.candidatos)
     aluno: Alunos
 
-    @ManyToOne(() => Projetos, (projetos) => projetos.candidatos)
-    projeto: Projetos
+    @ManyToOne(() => Visitantes, (visitantes) => visitantes.participante)
+    visitantes: Visitantes
 
-    @OneToMany(() => Votos, (votos) => votos.candidato)
+    @OneToMany(() => Votos, (votos) => votos.participante)
     votos: Votos[]
-    
 }

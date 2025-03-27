@@ -1,9 +1,11 @@
-import { Projeto } from "src/projeto/projeto.entity";
-import { Usuario } from "src/usuario/usuario.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Candidato } from "src/candidato/candidato.entity";
+import { Participantes } from "src/participante/participante.entity";
+import { Projetos } from "src/projeto/projeto.entity";
+import { Usuarios } from "src/usuario/usuario.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class Aluno{
+export class Alunos{
     @PrimaryGeneratedColumn()
     id: Number
 
@@ -23,10 +25,17 @@ export class Aluno{
     curso_semestre: String
 
 
-    @OneToOne(() => Usuario)
+    @OneToOne(() => Usuarios)
     @JoinColumn()
-    usuario: Usuario
+    usuario: Usuarios
 
-    @ManyToOne(() => Projeto, (projeto) => projeto.alunos)
-    projeto: Projeto
+    @ManyToOne(() => Projetos, (projeto) => projeto.alunos)
+    projeto: Projetos
+    
+    @OneToMany(() => Candidato, (candidato) => candidato.aluno)
+    candidatos: Candidato[]
+
+    @OneToMany(() => Participantes, (participantes) => participantes.aluno)
+    participantes: Participantes[]
+
 }

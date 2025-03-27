@@ -1,4 +1,4 @@
 export enum TipoEvento{
-    INTERNO = "INTERNO",
-    EXTERNO = "EXTERNO"
+    INTERNO = "Interno",
+    EXTERNO = "Externo"
 }

@@ -3,7 +3,7 @@ import { Aluno } from 'src/aluno/aluno.entity';
 import { Evento } from 'src/evento/evento.entity';
 import { StatusEvento } from 'src/evento/status.enum';
 import { TipoEvento } from 'src/evento/tipo.enum';
-import { Usuario } from 'src/usuario/usuario.entity';
+import { Usuarios } from 'src/usuario/usuario.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()

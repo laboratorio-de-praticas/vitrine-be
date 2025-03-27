@@ -3,7 +3,7 @@ import { TipoUsuario } from "./tipo.enum";
 import { StatusUsuario } from "./status.enum";
 
 @Entity()
-export class Usuario{
+export class Usuarios{
     @PrimaryGeneratedColumn()
     id: number
 
@@ -16,10 +16,10 @@ export class Usuario{
     @Column()
     data_criacao: Date
 
-    @Column()
+    @Column({length: 400})
     senha: String
     
-    @Column({length: 255})
+    @Column({length: 250})
     email_institucional: String
 
     @Column()

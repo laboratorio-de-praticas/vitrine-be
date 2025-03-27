@@ -1,31 +1,28 @@
 import { Candidato } from "src/candidato/candidato.entity";
-import { Votante } from "src/votante/votante.entity";
+import { Participantes } from "src/participante/participante.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { TipoEvento } from "./tipo.enum";
 import { StatusEvento } from "./status.enum";
 
 @Entity()
-export class Evento{
+export class Eventos{
     @PrimaryGeneratedColumn()
-    id: number
+    id_evento: number
 
     @Column({length: 255})
-    nome: String
+    nomeEvento: String
 
     @Column()
-    tipo_evento: TipoEvento
+    tipoEvento: TipoEvento
 
     @Column()
-    data_inicio: Date
+    descricaoEvento: Text
 
     @Column()
-    data_fim: Date
-
+    statusEvento: StatusEvento
+    
     @Column()
-    descricao: String
-
-    @Column()
-    status: StatusEvento
+    curso_semestre: String
     
     @Column()
     data_alteracao: Date
@@ -34,11 +31,14 @@ export class Evento{
     data_criacao: Date
 
     @Column()
-    curso_semestre: String
+    data_inicio: Date
+
+    @Column()
+    data_fim: Date
 
     @OneToMany(() => Candidato, (candidato) => candidato.evento)
     candidatos: Candidato[]
 
-    @OneToMany(() => Votante, (votante) => votante.evento)
-    votantes: Votante[]
+    @OneToMany(() => Participantes, (participantes) => participantes.evento)
+    participantes: Participantes[]
 }
