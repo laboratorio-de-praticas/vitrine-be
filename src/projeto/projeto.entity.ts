@@ -20,4 +20,4 @@ export class Projeto{
 
     @OneToMany(() => Aluno, (aluno) => aluno.projeto)
     alunos: Aluno[]
-}
+}   

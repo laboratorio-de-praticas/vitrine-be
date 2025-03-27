@@ -10,11 +10,11 @@ import { ApiBearerAuth } from '@nestjs/swagger';
 export class VitrineController {
     constructor(private readonly vitrineService: VitrineService){}
 
-    @Get()
-    @UseGuards(AuthGuard)
-    async findRepresentantes(@Request() req): Promise<Evento> {
-      return await this.vitrineService.findRepresentantes(req.user);
-    }
+    // @Get()
+    // @UseGuards(AuthGuard)
+    // async findRepresentantes(@Request() req): Promise<Evento> {
+    //   return await this.vitrineService.findRepresentantes(req.user);
+    // }
 
     @Get("/tv")
     @UseGuards(AuthGuard)
@@ -23,7 +23,7 @@ export class VitrineController {
     }
 
     @Get()
-    @UseGuards(AuthGuard)
+    // @UseGuards(AuthGuard)
     async findEventoAtivo(): Promise<{ tituloEvento: string; urlFoto: string; candidatos: string[] }[]> {
       return await this.vitrineService.findEventoAtivo();
     }

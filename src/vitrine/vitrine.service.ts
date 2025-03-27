@@ -36,14 +36,14 @@ export class VitrineService {
     }
 
     async findEventoAtivo(): Promise<{ urlFoto: string; candidatos: string[]; tituloEvento: string }[]> {
-      const SALA_DO_ALUNO = 'nome_da_sala';
+      const SALA_DO_ALUNO = 'nome_da_sala'; //Puxar a sala e curso do usuário logado
     
       const eventos = await this.eventoRepository
         .createQueryBuilder("evento")
         .leftJoinAndSelect("evento.candidatos", "candidato")
         .where("evento.tipo_evento = :tipo_evento", { tipo_evento: TipoEvento.INTERNO })
         .andWhere("evento.status = :status", { status: StatusEvento.ATIVO })
-        .andWhere("evento.sala = :sala", { sala: SALA_DO_ALUNO })
+        .andWhere("evento.curso_semestre = :sala", { sala: SALA_DO_ALUNO })
         .select([
           "evento.urlFoto",  
           "evento.nome",
