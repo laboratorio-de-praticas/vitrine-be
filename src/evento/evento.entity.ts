@@ -16,7 +16,7 @@ export class Eventos{
     tipoEvento: TipoEvento
 
     @Column()
-    descricaoEvento: Text
+    descricaoEvento: String
 
     @Column()
     statusEvento: StatusEvento

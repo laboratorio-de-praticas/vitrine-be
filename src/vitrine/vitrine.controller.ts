@@ -1,7 +1,7 @@
 import { Controller, Get, Request, UseGuards, UseInterceptors } from '@nestjs/common';
 import { VitrineService } from './vitrine.service';
 
-import { Evento } from 'src/evento/evento.entity';
+import { Eventos } from 'src/evento/evento.entity';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { Roles } from 'src/auth/auth.roles';
@@ -16,14 +16,14 @@ export class VitrineController {
     @Get()
     @Roles("ADMINISTRADOR", "INTERNO")
     @UseInterceptors(CacheInterceptor)
-    async findRepresentantes(@Request() req): Promise<Evento> {
+    async findRepresentantes(@Request() req): Promise<Eventos> {
       return await this.vitrineService.findRepresentantes(req.user);
     }
 
     @Get("/tv")
     @Roles("ADMINISTRADOR")
     @UseInterceptors(CacheInterceptor)
-    async findTv(@Request() req): Promise<Evento[]> {
+    async findTv(@Request() req): Promise<Eventos[]> {
         return await this.vitrineService.findTv(req.user);
     }
 }

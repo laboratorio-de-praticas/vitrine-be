@@ -1,6 +1,6 @@
 import { Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
-import { Aluno } from 'src/aluno/aluno.entity';
-import { Evento } from 'src/evento/evento.entity';
+import { Alunos } from 'src/aluno/aluno.entity';
+import { Eventos } from 'src/evento/evento.entity';
 import { StatusEvento } from 'src/evento/status.enum';
 import { TipoEvento } from 'src/evento/tipo.enum';
 import { Usuarios } from 'src/usuario/usuario.entity';
@@ -10,12 +10,12 @@ import { Repository } from 'typeorm';
 export class VitrineService {
     constructor(
         @Inject('EVENTO_REPOSITORY')
-        private eventoRepository: Repository<Evento>,
+        private eventoRepository: Repository<Eventos>,
         @Inject("ALUNO_REPOSITORY")
-        private alunoRepository: Repository<Aluno>
+        private alunoRepository: Repository<Alunos>
       ) {}
     
-    async findRepresentantes(usuario: Usuario): Promise<Evento>{
+    async findRepresentantes(usuario: Usuarios): Promise<Eventos>{
 
       const aluno = await this.alunoRepository.findOne({
         where: {
@@ -42,7 +42,7 @@ export class VitrineService {
         return evento;
     }
 
-    async findTv(usuario: Usuario): Promise<Evento[]>{
+    async findTv(usuario: Usuarios): Promise<Eventos[]>{
       const queryBuilder = this.eventoRepository.createQueryBuilder("evento")
       queryBuilder.andWhere("evento.tipo_evento = :tipo_evento", { tipo_evento: TipoEvento.INTERNO })
       queryBuilder.andWhere("evento.status = :status", { status: StatusEvento.ATIVO })
