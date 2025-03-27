@@ -23,11 +23,11 @@ export class VitrineController {
   }
 
   @Get('/tv')
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   async findTv(@Request() req): Promise<Evento[]> {
-    // if (req.user.tipo !== 'ADMINISTRADOR') {
-    //   throw new UnauthorizedException('Acesso negado');
-    // }
+    if (req.user.tipo !== 'ADMINISTRADOR') {
+      throw new UnauthorizedException('Acesso negado');
+    }
     return await this.vitrineService.findTv();
   }
 }
