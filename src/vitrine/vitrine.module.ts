@@ -4,9 +4,10 @@ import { VitrineService } from './vitrine.service';
 import { eventoProviders } from 'src/evento/evento.providers';
 import { DatabaseModule } from 'src/database/database.module';
 import { alunoProviders } from 'src/aluno/aluno.providers';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [CacheModule.register(), DatabaseModule],
   controllers: [VitrineController],
   providers: [...eventoProviders, ...alunoProviders, VitrineService],
 
