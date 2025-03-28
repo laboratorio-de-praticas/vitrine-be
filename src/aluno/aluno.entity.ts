@@ -5,14 +5,8 @@ import { Votantes } from '../votante/votante.entity';
 
 @Entity('alunos')
 export class Alunos {
-  @PrimaryGeneratedColumn({ name: 'id_aluno' })
+  @PrimaryGeneratedColumn({ name: 'id' })
   id: number;
-
-  @Column({ nullable: true, name: 'fk_id_usuario' })
-  id_usuario: number;
-
-  @Column({ nullable: true })
-  id_projeto: number;
 
   @Column()
   foto_url: string;
@@ -30,7 +24,7 @@ export class Alunos {
   dataAlteracao: Date;
 
   @ManyToOne(() => Usuarios, usuario => usuario.alunos)
-  @JoinColumn({ name: 'fk_id_usuario' })
+  @JoinColumn({ name: 'id_usuario' })
   usuario: Usuarios;
 
   @OneToMany(() => Candidatos, candidato => candidato.aluno)

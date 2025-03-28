@@ -33,15 +33,15 @@ export class Eventos {
     enum: StatusEvento
   })
   statusEvento: StatusEvento;
-
-  @Column({ nullable: true })
-  curso_semestre: string;
-
+  
   @CreateDateColumn({ name: 'data_criacao' })
   dataCriacao: Date;
 
   @UpdateDateColumn({ name: 'data_alteracao' })
   dataAlteracao: Date;
+  @Column({ nullable: true })
+  curso_semestre: string;
+
 
   @OneToMany(() => Candidatos, candidato => candidato.evento)
   candidatos: Candidatos[];

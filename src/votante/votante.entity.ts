@@ -7,15 +7,6 @@ export class Votantes {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
-  id_aluno: number;
-
-  @Column({ nullable: true })
-  id_visitante: number;
-
-  @Column({ nullable: true })
-  id_evento: number;
-
   @Column()
   situacao_votante: string;
 

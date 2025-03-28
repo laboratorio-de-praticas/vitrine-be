@@ -7,20 +7,11 @@ export class Candidatos {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
-  id_aluno: number;
-
-  @Column({ nullable: true })
-  id_projeto: number;
-
-  @Column({ nullable: true })
-  id_evento: number;
-
   @Column()
   situacao_candidato: string;
 
-  @Column({ type: 'bytea' })
-  qrcode: Buffer;
+  @Column()
+  qrcode: String;
 
   @CreateDateColumn({ name: 'data_criacao' })
   dataCriacao: Date;
@@ -35,5 +26,4 @@ export class Candidatos {
   @ManyToOne(() => Eventos, evento => evento.candidatos)
   @JoinColumn({ name: 'id_evento' })
   evento: Eventos;
-
 }
