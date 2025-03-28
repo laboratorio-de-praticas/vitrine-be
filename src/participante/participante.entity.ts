@@ -9,9 +9,6 @@ export class Participantes{
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column({length: 255})
-    nome_social: String
-
     @Column()
     data_alteracao: Date
 
