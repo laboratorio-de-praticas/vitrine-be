@@ -4,6 +4,11 @@ import { Evento } from 'src/evento/evento.entity';
 import { StatusEvento } from 'src/evento/status.enum';
 import { TipoEvento } from 'src/evento/tipo.enum';
 import { Usuario } from 'src/usuario/usuario.entity';
+import { Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Alunos } from '../aluno/aluno.entity';
+import { Eventos } from '../evento/evento.entity';
+import { StatusEvento, TipoEvento } from '../enums';
+import { Usuarios } from '../usuario/usuario.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -11,6 +16,8 @@ export class VitrineService {
     constructor(
         @Inject('EVENTO_REPOSITORY')
         private eventoRepository: Repository<Evento>,
+        @Inject("ALUNO_REPOSITORY")
+        private alunoRepository: Repository<Alunos>
       ) {}
     
     async findRepresentantes(aluno: Aluno): Promise<Evento>{
@@ -21,6 +28,27 @@ export class VitrineService {
 
         const evento = await queryBuilder.getOne()
 
+      ) 
+
+      async findRepresentantes(usuario: Usuarios): Promise<Eventos>{
+
+      const aluno = await this.alunoRepository.findOne({
+        where: {
+          usuario: { id: usuario.id }
+        },
+      })
+
+      if(aluno == null){
+        throw new UnauthorizedException()
+      }
+
+      
+      const queryBuilder = this.eventoRepository.createQueryBuilder("evento")
+      queryBuilder.andWhere("evento.curso_semestre = :curso_semestre", { curso_semestre: aluno.curso_semestre })
+      queryBuilder.andWhere("evento.tipo_evento = :tipo_evento", { tipo_evento: TipoEvento.INTERNO })
+      queryBuilder.andWhere("evento.status_evento = :status", { status: StatusEvento.ATIVO })
+
+      const evento = await queryBuilder.getOne()
         if (!evento) {
           throw new NotFoundException('Não foi encontrado nenhum evento ativo interno dessa sala')
         }
@@ -36,7 +64,7 @@ export class VitrineService {
     }
 
     async findEventoAtivo(): Promise<{ urlFoto: string; candidatos: string[]; tituloEvento: string }[]> {
-      const SALA_DO_ALUNO = 'nome_da_sala'; //Puxar a sala e curso do usuário logado
+      const SALA_DO_ALUNO = 'nome_da_sala';
     
       const eventos = await this.eventoRepository
         .createQueryBuilder("evento")
@@ -57,4 +85,14 @@ export class VitrineService {
           tituloEvento: String(evento.nome)
         }));                
     }    
+}
+    async findTv(usuario: Usuarios): Promise<Eventos[]>{
+      const queryBuilder = this.eventoRepository.createQueryBuilder("evento");
+      queryBuilder.andWhere("evento.tipo_evento = :tipo_evento", { tipo_evento: TipoEvento.INTERNO });
+      queryBuilder.andWhere("evento.status_evento = :status", { status: StatusEvento.ATIVO });
+      
+      queryBuilder.leftJoinAndSelect("evento.participantes", "participantes");
+      queryBuilder.leftJoinAndSelect("participantes.aluno", "aluno");
+      return await queryBuilder.getMany();
+    }
 }
