@@ -1,32 +1,35 @@
-import { Projeto } from "src/projeto/projeto.entity";
-import { Usuario } from "src/usuario/usuario.entity";
-import { Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { Usuarios } from '../usuario/usuario.entity';
+import { Candidatos } from '../candidato/candidato.entity';
+import { Votantes } from '../votante/votante.entity';
 
-@Entity()
-export class Aluno{
-    @PrimaryGeneratedColumn()
-    id: Number
+@Entity('alunos')
+export class Alunos {
+  @PrimaryGeneratedColumn({ name: 'id' })
+  id: number;
 
-    @Column()
-    foto_url: String
+  @Column()
+  foto_url: string;
 
-    @Column()
-    data_criacao: Date
+  @Column({ type: 'timestamp' })
+  data_ingresso: Date;
 
-    @Column()
-    data_alteracao: Date
+  @Column()
+  curso_semestre: string;
 
-    @Column()
-    data_ingresso: Date
-    
-    @Column()
-    curso_semestre: String
+  @CreateDateColumn({ name: 'data_criacao' })
+  dataCriacao: Date;
 
+  @UpdateDateColumn({ name: 'data_alteracao' })
+  dataAlteracao: Date;
 
-    @OneToOne(() => Usuario)
-    @JoinColumn()
-    usuario: Usuario
+  @ManyToOne(() => Usuarios, usuario => usuario.alunos)
+  @JoinColumn({ name: 'id_usuario' })
+  usuario: Usuarios;
 
-    @ManyToOne(() => Projeto, (projeto) => projeto.alunos)
-    projeto: Projeto
+  @OneToMany(() => Candidatos, candidato => candidato.aluno)
+  candidatos: Candidatos[];
+
+  @OneToMany(() => Votantes, votante => votante.aluno)
+  votantes: Votantes[];
 }

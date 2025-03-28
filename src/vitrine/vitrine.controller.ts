@@ -21,6 +21,11 @@ export class VitrineController {
   async findRepresentantes(@Request() req): Promise<Evento> {
     return await this.vitrineService.findRepresentantes(req.user);
   }
+    // @Get()
+    // @UseGuards(AuthGuard)
+    // async findRepresentantes(@Request() req): Promise<Evento> {
+    //   return await this.vitrineService.findRepresentantes(req.user);
+    // }
 
   @Get('/tv')
   @UseGuards(AuthGuard)
@@ -30,4 +35,10 @@ export class VitrineController {
     }
     return await this.vitrineService.findTv();
   }
+
+    @Get()
+    // @UseGuards(AuthGuard)
+    async findEventoAtivo(): Promise<{ tituloEvento: string; urlFoto: string; candidatos: string[] }[]> {
+      return await this.vitrineService.findEventoAtivo();
+    }
 }

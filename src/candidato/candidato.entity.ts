@@ -1,38 +1,25 @@
-import { Evento } from 'src/evento/evento.entity';
-import {
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
-
-@Entity()
-
-@Entity()
-export class Candidato {
+@Entity('candidato')
+export class Candidatos {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ length: 255 })
-  nome: String;
-
-  @UpdateDateColumn()
-  data_alteracao: Date;
-
-  @CreateDateColumn()
-  data_criacao: Date;
-
-  @Column({ length: 255 })
-  situacao_candidato: String;
+  @Column()
+  situacao_candidato: string;
 
   @Column()
-  qrCode: String;
+  qrcode: String;
 
-  @Column({ length: 255 })
-  foto: String;
+  @CreateDateColumn({ name: 'data_criacao' })
+  dataCriacao: Date;
 
-  @ManyToOne(() => Evento, (evento) => evento.candidatos)
-  evento: Evento;
+  @UpdateDateColumn({ name: 'data_alteracao' })
+  dataAlteracao: Date;
+
+  @ManyToOne(() => Alunos, aluno => aluno.candidatos)
+  @JoinColumn({ name: 'id_aluno' })
+  aluno: Alunos;
+
+  @ManyToOne(() => Eventos, evento => evento.candidatos)
+  @JoinColumn({ name: 'id_evento' })
+  evento: Eventos;
 }
