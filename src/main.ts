@@ -1,9 +1,22 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
+
+  const VITRINE_FE_PORT = process.env.VITRINE_FE_PORT || '3000';
+  const allowedOrigin = `http://127.0.0.1:${VITRINE_FE_PORT}`;
+
+  app.enableCors({
+    origin: allowedOrigin,
+    credentials: true,
+    methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+    // allowedHeaders: 'Content-Type, Authorization',
+  });
 
   const config = new DocumentBuilder()
     .setTitle('Vitrine - Swagger')
@@ -15,6 +28,6 @@ async function bootstrap() {
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
 
-  await app.listen(process.env.VITRINE_BE_PORT ?? 3000);
+  await app.listen(3000);
 }
 bootstrap();

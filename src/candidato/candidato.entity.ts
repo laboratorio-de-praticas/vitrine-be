@@ -1,7 +1,3 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { Alunos } from '../aluno/aluno.entity';
-import { Eventos } from '../evento/evento.entity';
-
 @Entity('candidato')
 export class Candidatos {
   @PrimaryGeneratedColumn()

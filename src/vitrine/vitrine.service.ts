@@ -1,5 +1,6 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Aluno } from 'src/aluno/aluno.entity';
+import { Candidato } from 'src/candidato/candidato.entity';
 import { Evento } from 'src/evento/evento.entity';
 import { StatusEvento } from 'src/evento/status.enum';
 import { TipoEvento } from 'src/evento/tipo.enum';
@@ -26,10 +27,6 @@ export class VitrineService {
         queryBuilder.andWhere("evento.tipo_evento = :tipo_evento", { tipo_evento: TipoEvento.INTERNO })
         queryBuilder.andWhere("evento.status = :status", { status: StatusEvento.ATIVO })
 
-        const evento = await queryBuilder.getOne()
-
-      ) 
-
       async findRepresentantes(usuario: Usuarios): Promise<Eventos>{
 
       const aluno = await this.alunoRepository.findOne({
@@ -53,15 +50,14 @@ export class VitrineService {
           throw new NotFoundException('Não foi encontrado nenhum evento ativo interno dessa sala')
         }
 
-        return evento;
+    if (!evento) {
+      throw new NotFoundException(
+        'Não foi encontrado nenhum evento ativo interno dessa sala',
+      );
     }
 
-    async findTv(usuario: Usuario): Promise<Evento[]>{
-      const queryBuilder = this.eventoRepository.createQueryBuilder("evento")
-      queryBuilder.andWhere("evento.tipo_evento = :tipo_evento", { tipo_evento: TipoEvento.INTERNO })
-      queryBuilder.andWhere("evento.status = :status", { status: StatusEvento.ATIVO })
-      return await queryBuilder.getMany();
-    }
+    return evento;
+  }
 
     async findEventoAtivo(): Promise<{ urlFoto: string; candidatos: string[]; tituloEvento: string }[]> {
       const SALA_DO_ALUNO = 'nome_da_sala';
