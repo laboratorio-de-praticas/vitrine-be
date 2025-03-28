@@ -14,14 +14,14 @@ export class VitrineController {
     constructor(private readonly vitrineService: VitrineService){}
 
     @Get()
-    @Roles("ADMINISTRADOR", "INTERNO")
+    @Roles("Admin", "Interno")
     @UseInterceptors(CacheInterceptor)
     async findRepresentantes(@Request() req): Promise<Eventos> {
       return await this.vitrineService.findRepresentantes(req.user);
     }
 
     @Get("/tv")
-    @Roles("ADMINISTRADOR")
+    @Roles("Admin")
     @UseInterceptors(CacheInterceptor)
     async findTv(@Request() req): Promise<Eventos[]> {
         return await this.vitrineService.findTv(req.user);

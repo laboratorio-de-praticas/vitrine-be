@@ -1,6 +1,6 @@
 import { Alunos } from "src/aluno/aluno.entity";
 import { Candidato } from "src/candidato/candidato.entity";
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Projetos{
@@ -20,6 +20,7 @@ export class Projetos{
     data_criacao: Date
 
     @OneToMany(() => Alunos, (aluno) => aluno.projeto)
+    @JoinColumn({ name: 'id_aluno' }) 
     alunos: Alunos[]
 
     @OneToMany(() => Candidato, (candidato) => candidato.projeto)

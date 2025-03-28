@@ -26,10 +26,11 @@ export class Alunos{
 
 
     @OneToOne(() => Usuarios)
-    @JoinColumn()
+    @JoinColumn({ name: 'id_usuario' })
     usuario: Usuarios
 
     @ManyToOne(() => Projetos, (projeto) => projeto.alunos)
+    @JoinColumn({ name: 'id_projeto' }) 
     projeto: Projetos
     
     @OneToMany(() => Candidato, (candidato) => candidato.aluno)
