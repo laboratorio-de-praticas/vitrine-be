@@ -31,7 +31,7 @@ export class VitrineService {
       const queryBuilder = this.eventoRepository.createQueryBuilder("evento")
       queryBuilder.andWhere("evento.curso_semestre = :curso_semestre", { curso_semestre: aluno.curso_semestre })
       queryBuilder.andWhere("evento.tipo_evento = :tipo_evento", { tipo_evento: TipoEvento.INTERNO })
-      queryBuilder.andWhere("evento.status = :status", { status: StatusEvento.ATIVO })
+      queryBuilder.andWhere("evento.status_evento = :status", { status: StatusEvento.ATIVO })
 
       const evento = await queryBuilder.getOne()
 
@@ -45,7 +45,7 @@ export class VitrineService {
     async findTv(usuario: Usuarios): Promise<Eventos[]>{
       const queryBuilder = this.eventoRepository.createQueryBuilder("evento")
       queryBuilder.andWhere("evento.tipo_evento = :tipo_evento", { tipo_evento: TipoEvento.INTERNO })
-      queryBuilder.andWhere("evento.status = :status", { status: StatusEvento.ATIVO })
+      queryBuilder.andWhere("evento.status_evento = :status", { status: StatusEvento.ATIVO })
       return await queryBuilder.getMany();
     }
 

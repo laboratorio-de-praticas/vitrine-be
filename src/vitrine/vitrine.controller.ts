@@ -9,19 +9,19 @@ import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @ApiBearerAuth()
 @Controller('v1/vitrine')
-@UseGuards(AuthGuard)
+//@UseGuards(AuthGuard)
 export class VitrineController {
     constructor(private readonly vitrineService: VitrineService){}
 
     @Get()
-    @Roles("Admin", "Interno")
+    //@Roles("Admin", "Interno")
     @UseInterceptors(CacheInterceptor)
     async findRepresentantes(@Request() req): Promise<Eventos> {
       return await this.vitrineService.findRepresentantes(req.user);
     }
 
     @Get("/tv")
-    @Roles("Admin")
+    //@Roles("Admin")
     @UseInterceptors(CacheInterceptor)
     async findTv(@Request() req): Promise<Eventos[]> {
         return await this.vitrineService.findTv(req.user);
