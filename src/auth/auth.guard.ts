@@ -5,13 +5,23 @@ import {
     Injectable,
     UnauthorizedException,
   } from '@nestjs/common';
-  import { Request } from 'express';
+
+  import { Reflector } from '@nestjs/core';
+import { Request } from 'express';
+import { ROLES_KEY } from './auth.roles';
   
   @Injectable()
   export class AuthGuard implements CanActivate {
+    constructor(private reflector: Reflector) {}
     async canActivate(context: ExecutionContext): Promise<boolean> {
       const request = context.switchToHttp().getRequest();
       const token = this.extractTokenFromHeader(request);
+
+      const requiredRoles = this.reflector.getAllAndOverride<string[]>(ROLES_KEY, [
+        context.getHandler(),
+        context.getClass(),
+      ])
+
       if (!token) {
         throw new UnauthorizedException();
       }
@@ -21,8 +31,9 @@ import {
       } catch {
         throw new UnauthorizedException();
       }
-
-      return true;
+      const user = request.user;  
+      return requiredRoles.some(role => user.roles?.includes(role));
+    
     }
   
     private extractTokenFromHeader(request: Request): string | undefined {

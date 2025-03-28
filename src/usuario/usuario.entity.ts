@@ -2,41 +2,29 @@ import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, Up
 import { Alunos } from '../aluno/aluno.entity';
 import { StatusUsuario, TipoUsuario } from '../enums';
 
-@Entity('usuarios')
-export class Usuarios {
-  @PrimaryGeneratedColumn()
-  id: number;
+@Entity()
+export class Usuarios{
+    @PrimaryGeneratedColumn()
+    id: number
 
-  @Column()
-  nome: string;
+    @Column({length: 255})
+    nome: String
+    
+    @Column()
+    data_alteracao: Date
+    
+    @Column()
+    data_criacao: Date
 
-  @Column()
-  senha: string;
+    @Column({length: 400})
+    senha: String
+    
+    @Column({length: 250})
+    email_institucional: String
 
-  @Column({ name: 'email_institucional' })
-  emailInstitucional: string;
-
-  @Column({
-    name: 'tipoUsuario',
-    type: 'enum',
-    enum: TipoUsuario,
-  })
-  tipoUsuario: TipoUsuario;
-
-  @Column({
-    name: 'status_usuario',
-    type: 'enum',
-    enum: StatusUsuario,
-    default: StatusUsuario.ATIVO
-  })
-  statusUsuario: StatusUsuario;
-
-  @CreateDateColumn({ name: 'data_criacao' })
-  dataCriacao: Date;
-
-  @UpdateDateColumn({ name: 'data_alteracao' })
-  dataAlteracao: Date;
-
-  @OneToMany(() => Alunos, aluno => aluno.usuario)
-  alunos: Alunos[];
+    @Column()
+    tipo_usuario: TipoUsuario
+    
+    @Column()
+    status_usuario: StatusUsuario
 }

@@ -1,51 +1,48 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { StatusEvento, TipoEvento } from '../enums';
-import { Candidatos } from '../candidato/candidato.entity';
-import { Votantes } from '../votante/votante.entity';
+import { Candidato } from "src/candidato/candidato.entity";
+import { Participantes } from "src/participante/participante.entity";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { TipoEvento } from "./tipo.enum";
+import { StatusEvento } from "./status.enum";
+import { Votos } from "src/votos/voto.entity";
 
-@Entity('eventos')
-export class Eventos {
-  @PrimaryGeneratedColumn({ name: 'id_evento' })
-  id: number;
+@Entity()
+export class Eventos{
+    @PrimaryGeneratedColumn()
+    id_evento: number
 
-  @Column({ name: 'nomeEvento' })
-  nome: string;
+    @Column({length: 255})
+    nome_evento: String
 
-  @Column({
-    name: 'tipoEvento',
-    type: 'enum',
-    enum: TipoEvento
-  })
-  tipoEvento: TipoEvento;
+    @Column()
+    tipo_evento: TipoEvento
 
-  @Column({ type: 'timestamp', name: 'data_inicio' })
-  dataInicio: Date;
+    @Column()
+    descricao_evento: String
 
-  @Column({ type: 'timestamp', name: 'data_fim' })
-  dataFim: Date;
+    @Column()
+    status_evento: StatusEvento
+    
+    @Column()
+    curso_semestre: String
+    
+    @Column()
+    data_alteracao: Date
 
-  @Column({ name: 'descricaoEvento' })
-  descricao: string;
+    @Column()
+    data_criacao: Date
 
-  @Column({
-    name: 'statusEvento',
-    type: 'enum',
-    enum: StatusEvento
-  })
-  statusEvento: StatusEvento;
-  
-  @CreateDateColumn({ name: 'data_criacao' })
-  dataCriacao: Date;
+    @Column()
+    data_inicio: Date
 
-  @UpdateDateColumn({ name: 'data_alteracao' })
-  dataAlteracao: Date;
-  @Column({ nullable: true })
-  curso_semestre: string;
+    @Column()
+    data_fim: Date
 
+    @OneToMany(() => Candidato, (candidato) => candidato.evento)
+    candidatos: Candidato[]
 
-  @OneToMany(() => Candidatos, candidato => candidato.evento)
-  candidatos: Candidatos[];
-
-  @OneToMany(() => Votantes, votante => votante.evento)
-  votantes: Votantes[];
+    @OneToMany(() => Participantes, (participantes) => participantes.evento)
+    participantes: Participantes[]
+    
+    @OneToMany(() => Votos, (votos) => votos.evento)
+    votos: Votos[]
 }

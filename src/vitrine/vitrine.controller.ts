@@ -1,44 +1,29 @@
-import {
-  Controller,
-  Get,
-  Request,
-  UseGuards,
-  UnauthorizedException,
-} from '@nestjs/common';
+import { Controller, Get, Request, UseGuards, UseInterceptors } from '@nestjs/common';
 import { VitrineService } from './vitrine.service';
 
-import { Evento } from 'src/evento/evento.entity';
+import { Eventos } from 'src/evento/evento.entity';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { Roles } from 'src/auth/auth.roles';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @ApiBearerAuth()
 @Controller('v1/vitrine')
+//@UseGuards(AuthGuard)
 export class VitrineController {
   constructor(private readonly vitrineService: VitrineService) {}
 
-  @Get()
-  @UseGuards(AuthGuard)
-  async findRepresentantes(@Request() req): Promise<Evento> {
-    return await this.vitrineService.findRepresentantes(req.user);
-  }
-    // @Get()
-    // @UseGuards(AuthGuard)
-    // async findRepresentantes(@Request() req): Promise<Evento> {
-    //   return await this.vitrineService.findRepresentantes(req.user);
-    // }
-
-  @Get('/tv')
-  @UseGuards(AuthGuard)
-  async findTv(@Request() req): Promise<Evento[]> {
-    if (req.user.tipo !== 'ADMINISTRADOR') {
-      throw new UnauthorizedException('Acesso negado');
-    }
-    return await this.vitrineService.findTv();
-  }
-
     @Get()
-    // @UseGuards(AuthGuard)
-    async findEventoAtivo(): Promise<{ tituloEvento: string; urlFoto: string; candidatos: string[] }[]> {
-      return await this.vitrineService.findEventoAtivo();
+    //@Roles("Admin", "Interno")
+    @UseInterceptors(CacheInterceptor)
+    async findRepresentantes(@Request() req): Promise<Eventos> {
+      return await this.vitrineService.findRepresentantes(req.user);
+    }
+
+    @Get("/tv")
+    //@Roles("Admin")
+    @UseInterceptors(CacheInterceptor)
+    async findTv(@Request() req): Promise<Eventos[]> {
+        return await this.vitrineService.findTv(req.user);
     }
 }

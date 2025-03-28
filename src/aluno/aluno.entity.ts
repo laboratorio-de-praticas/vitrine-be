@@ -1,35 +1,42 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { Usuarios } from '../usuario/usuario.entity';
-import { Candidatos } from '../candidato/candidato.entity';
-import { Votantes } from '../votante/votante.entity';
+import { Candidato } from "src/candidato/candidato.entity";
+import { Participantes } from "src/participante/participante.entity";
+import { Projetos } from "src/projeto/projeto.entity";
+import { Usuarios } from "src/usuario/usuario.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('alunos')
-export class Alunos {
-  @PrimaryGeneratedColumn({ name: 'id' })
-  id: number;
+@Entity()
+export class Alunos{
+    @PrimaryGeneratedColumn()
+    id_aluno: Number
 
-  @Column()
-  foto_url: string;
+    @Column()
+    foto_url: String
 
-  @Column({ type: 'timestamp' })
-  data_ingresso: Date;
+    @Column()
+    data_criacao: Date
 
-  @Column()
-  curso_semestre: string;
+    @Column()
+    data_alteracao: Date
 
-  @CreateDateColumn({ name: 'data_criacao' })
-  dataCriacao: Date;
+    @Column()
+    data_ingresso: Date
+    
+    @Column()
+    curso_semestre: String
 
-  @UpdateDateColumn({ name: 'data_alteracao' })
-  dataAlteracao: Date;
 
-  @ManyToOne(() => Usuarios, usuario => usuario.alunos)
-  @JoinColumn({ name: 'id_usuario' })
-  usuario: Usuarios;
+    @OneToOne(() => Usuarios)
+    @JoinColumn({ name: 'id_usuario' })
+    usuario: Usuarios
 
-  @OneToMany(() => Candidatos, candidato => candidato.aluno)
-  candidatos: Candidatos[];
+    @ManyToOne(() => Projetos, (projeto) => projeto.alunos)
+    @JoinColumn({ name: 'id_projeto' }) 
+    projeto: Projetos
+    
+    @OneToMany(() => Candidato, (candidato) => candidato.aluno)
+    candidatos: Candidato[]
 
-  @OneToMany(() => Votantes, votante => votante.aluno)
-  votantes: Votantes[];
+    @OneToMany(() => Participantes, (participantes) => participantes.aluno)
+    participantes: Participantes[]
+
 }

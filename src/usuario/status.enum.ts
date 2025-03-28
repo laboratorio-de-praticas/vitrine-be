@@ -1,5 +1,5 @@
 export enum StatusUsuario{
-    PENDENTE = "PENDENTE",
-    ATIVO = "ATIVO",
-    DESLIGADO = "DESLIGADO"
+    PENDENTE = "Pendente",
+    ATIVO = "Ativo",
+    DESLIGADO = "Desligado"
 }

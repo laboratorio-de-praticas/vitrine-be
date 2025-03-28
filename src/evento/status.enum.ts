@@ -1,6 +1,6 @@
 export enum StatusEvento{
-    ATIVO = "ATIVO",
-    EM_PREPARO = "EM PREPARO",
-    EM_CONTAGEM = "EM_CONTAGEM",
-    FINALIZADO = "FINALIZADO"
+    ATIVO = "Ativo",
+    EM_PREPARO = "Em_Preparo",
+    EM_CONTAGEM = "Em_Contagem",
+    FINALIZADO = "Finalizado"
 }

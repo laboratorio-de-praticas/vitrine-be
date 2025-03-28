@@ -1,25 +1,40 @@
-@Entity('candidato')
-export class Candidatos {
-  @PrimaryGeneratedColumn()
-  id: number;
+import { Alunos } from "src/aluno/aluno.entity";
+import { Eventos } from "src/evento/evento.entity";
+import { Projetos } from "src/projeto/projeto.entity";
+import { Votos } from "src/votos/voto.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { SituacaoCandidato } from "./candidato.enum";
 
-  @Column()
-  situacao_candidato: string;
+@Entity()
+export class Candidato{
+    @PrimaryGeneratedColumn()
+    id: number
 
-  @Column()
-  qrcode: String;
+    @Column()
+    data_alteracao: Date
 
-  @CreateDateColumn({ name: 'data_criacao' })
-  dataCriacao: Date;
+    @Column()
+    data_criacao: Date
 
-  @UpdateDateColumn({ name: 'data_alteracao' })
-  dataAlteracao: Date;
+    @Column({length: 255})
+    situacao_candidato: SituacaoCandidato
 
-  @ManyToOne(() => Alunos, aluno => aluno.candidatos)
-  @JoinColumn({ name: 'id_aluno' })
-  aluno: Alunos;
+    @Column({length: 255})
+    qrcode: String
 
-  @ManyToOne(() => Eventos, evento => evento.candidatos)
-  @JoinColumn({ name: 'id_evento' })
-  evento: Eventos;
+    @ManyToOne(() => Eventos, (evento) => evento.candidatos)
+    @JoinColumn({ name: 'id_evento' }) 
+    evento: Eventos
+
+    @ManyToOne(() => Alunos, (alunos) => alunos.candidatos)
+    @JoinColumn({ name: 'id_aluno' }) 
+    aluno: Alunos
+
+    @ManyToOne(() => Projetos, (projetos) => projetos.candidatos)
+    @JoinColumn({ name: 'id_projeto' }) 
+    projeto: Projetos
+
+    @OneToMany(() => Votos, (votos) => votos.candidato)
+    votos: Votos[]
+    
 }

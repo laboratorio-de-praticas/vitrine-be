@@ -1,5 +1,5 @@
 export enum TipoUsuario{
-    INTERNO = "INTERNO",
-    ADMINISTRADOR = "ADMINISTRADOR",
-    MANTEDOR = "MANTEDOR"
+    INTERNO = "Interno",
+    ADMINISTRADOR = "Admin",
+    MANTEDOR = "Mantedor"
 }
