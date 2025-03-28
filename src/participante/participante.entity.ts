@@ -16,9 +16,6 @@ export class Participantes{
     data_criacao: Date
 
     @Column()
-    situacao_votante: String
-
-    @Column()
     avaliador: boolean
 
     @ManyToOne(() => Eventos, (evento) => evento.participantes)

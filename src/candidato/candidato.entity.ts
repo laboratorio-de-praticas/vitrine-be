@@ -1,17 +1,14 @@
 import { Alunos } from "src/aluno/aluno.entity";
 import { Eventos } from "src/evento/evento.entity";
-import { Participantes } from "src/participante/participante.entity";
 import { Projetos } from "src/projeto/projeto.entity";
 import { Votos } from "src/votos/voto.entity";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { SituacaoCandidato } from "./candidato.enum";
 
 @Entity()
 export class Candidato{
     @PrimaryGeneratedColumn()
     id: number
-
-    @Column({length: 255})
-    nome: String
 
     @Column()
     data_alteracao: Date
@@ -20,7 +17,7 @@ export class Candidato{
     data_criacao: Date
 
     @Column({length: 255})
-    situacao_candidato: String
+    situacao_candidato: SituacaoCandidato
 
     @Column({length: 255})
     qrcode: String
