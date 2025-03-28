@@ -7,7 +7,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGene
 @Entity()
 export class Alunos{
     @PrimaryGeneratedColumn()
-    id: Number
+    id_aluno: Number
 
     @Column()
     foto_url: String

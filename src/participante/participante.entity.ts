@@ -7,13 +7,7 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 @Entity()
 export class Participantes{
     @PrimaryGeneratedColumn()
-    id: number
-
-    @Column()
-    data_alteracao: Date
-
-    @Column()
-    data_criacao: Date
+    id_participante: number
 
     @Column()
     avaliador: boolean

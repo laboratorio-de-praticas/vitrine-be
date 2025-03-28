@@ -11,13 +11,13 @@ export class Eventos{
     id_evento: number
 
     @Column({length: 255})
-    nome: String
+    nome_evento: String
 
     @Column()
     tipo_evento: TipoEvento
 
     @Column()
-    descricao: String
+    descricao_evento: String
 
     @Column()
     status_evento: StatusEvento
