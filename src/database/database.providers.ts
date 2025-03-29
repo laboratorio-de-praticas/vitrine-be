@@ -6,16 +6,14 @@ export const databaseProviders = [
       const dataSource = new DataSource({
         type: 'postgres',
         host: 'localhost',
-        database: 'teste',
+        database: 'teste2',
         synchronize: true,
         port: 5432,
         username: 'postgres',
-        password: 'postgres',
-        database: 'nestjs_db',
+        password: 'admin',
         entities: [
             __dirname + '/../**/*.entity{.ts,.js}',
-        ],
-        synchronize: true,
+        ]
       });
       return dataSource.initialize();
     },

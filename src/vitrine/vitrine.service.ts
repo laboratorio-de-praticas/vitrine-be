@@ -1,7 +1,7 @@
 import { StatusEvento } from 'src/evento/status.enum';
 import { TipoEvento } from 'src/evento/tipo.enum';
 import { Usuarios } from 'src/usuario/usuario.entity';
-import { Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Alunos } from '../aluno/aluno.entity';
 import { Eventos } from '../evento/evento.entity';
 import { Repository } from 'typeorm';
@@ -15,29 +15,16 @@ export class VitrineService {
         private alunoRepository: Repository<Alunos>
       ) {}
     
+    // Endpoint será descontinuado
     async findRepresentantes(usuario: Usuarios): Promise<Eventos>{
-
-      const aluno = await this.alunoRepository.findOne({
-        where: {
-          usuario: { id: usuario.id }
-        },
-      })
-
-      if(aluno == null){
-        throw new UnauthorizedException()
-      }
-
-      
+      const curso_semestre = "DSM1";
       const queryBuilder = this.eventoRepository.createQueryBuilder("evento")
-      queryBuilder.andWhere("evento.curso_semestre = :curso_semestre", { curso_semestre: aluno.curso_semestre })
+      queryBuilder.andWhere("evento.curso_semestre = :curso_semestre", { curso_semestre: curso_semestre })
       queryBuilder.andWhere("evento.tipo_evento = :tipo_evento", { tipo_evento: TipoEvento.INTERNO })
       queryBuilder.andWhere("evento.status_evento = :status", { status: StatusEvento.ATIVO })
-
+      queryBuilder.leftJoinAndSelect("evento.participantes", "participantes");
+      queryBuilder.leftJoinAndSelect("participantes.aluno", "aluno");
       const evento = await queryBuilder.getOne()
-
-        if (!evento) {
-          throw new NotFoundException('Não foi encontrado nenhum evento ativo interno dessa sala')
-        }
 
     if (!evento) {
       throw new NotFoundException(
@@ -47,7 +34,7 @@ export class VitrineService {
 
     return evento;
   }
-  async findEventoAtivo(): Promise<{ urlFoto: string; candidatos: string[]; tituloEvento: string }[]> {
+  async findEventoAtivo(): Promise<Eventos[]> {
     const SALA_DO_ALUNO = 'nome_da_sala';
   
     const eventos = await this.eventoRepository
@@ -56,29 +43,17 @@ export class VitrineService {
       .where("evento.tipo_evento = :tipo_evento", { tipo_evento: TipoEvento.INTERNO })
       .andWhere("evento.status = :status", { status: StatusEvento.ATIVO })
       .andWhere("evento.curso_semestre = :sala", { sala: SALA_DO_ALUNO })
-      .select([
-        "evento.urlFoto",  
-        "evento.nome",
-        "candidato.nome" 
-      ])
       .getMany();
-  
-      return eventos.map(evento => ({
-        urlFoto: String(evento.urlFoto),
-        candidatos: evento.candidatos.map(c => String(c.nome)), 
-        tituloEvento: String(evento.nome)
-      }));                
+      return eventos;
   }    
   
     async findTv(usuario: Usuarios): Promise<Eventos[]>{
       const queryBuilder = this.eventoRepository.createQueryBuilder("evento");
-
       queryBuilder.andWhere("evento.tipo_evento = :tipo_evento", { tipo_evento: TipoEvento.INTERNO });
       queryBuilder.andWhere("evento.status_evento = :status", { status: StatusEvento.ATIVO });
       
       queryBuilder.leftJoinAndSelect("evento.participantes", "participantes");
       queryBuilder.leftJoinAndSelect("participantes.aluno", "aluno");
       return await queryBuilder.getMany();
-      
     }
 }

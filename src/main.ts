@@ -14,9 +14,7 @@ async function bootstrap() {
   app.enableCors({
     origin: allowedOrigin,
     credentials: true,
-    methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
-    // allowedHeaders: 'Content-Type, Authorization',
-  });
+    methods: 'GET',});
 
   const config = new DocumentBuilder()
     .setTitle('Vitrine - Swagger')

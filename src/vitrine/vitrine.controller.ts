@@ -13,6 +13,7 @@ import { CacheInterceptor } from '@nestjs/cache-manager';
 export class VitrineController {
   constructor(private readonly vitrineService: VitrineService) {}
 
+    // Endpoint será descontinuado
     @Get()
     //@Roles("Admin", "Interno")
     @UseInterceptors(CacheInterceptor)
