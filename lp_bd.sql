@@ -63,17 +63,6 @@ fk_id_usuario INT,
 FOREIGN KEY (fk_id_usuario) REFERENCES Usuarios(id)
 );
 
-CREATE TABLE Candidato (
-    id SERIAL PRIMARY KEY,
-    id_aluno INT,
-    id_projeto INT,
-    qrcode VARCHAR(255),
-    situacao_candidato candidatoSituacao,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_aluno) REFERENCES Alunos(id_aluno),
-    FOREIGN KEY (id_projeto) REFERENCES Projetos(id_projeto)
-);
 
 create table Visitantes(
 id_visitante SERIAL PRIMARY KEY,
@@ -94,6 +83,19 @@ data_inicio TIMESTAMP,
 data_fim TIMESTAMP,
 data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE Candidato (
+    id SERIAL PRIMARY KEY,
+    id_aluno INT,
+    id_projeto INT,
+    id_evento INT,
+    qrcode VARCHAR(255),
+    situacao_candidato candidatoSituacao,
+    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (id_aluno) REFERENCES Alunos(id_aluno),
+    FOREIGN KEY (id_projeto) REFERENCES Projetos(id_projeto),
+    FOREIGN KEY (id_evento) REFERENCES Eventos(id_evento)
 );
 
 create table Participantes (
