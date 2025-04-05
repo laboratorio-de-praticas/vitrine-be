@@ -13,6 +13,6 @@ export class VitrineController {
     @Get("/tv")
     //@Roles("Admin")
     async findTv(@Request() req): Promise<Eventos[]> {
-        return await this.vitrineService.findTv(req.user);
+        return await this.vitrineService.findTv();
     }
 }

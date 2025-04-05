@@ -39,7 +39,7 @@ export class Eventos{
 
     @OneToMany(() => Candidato, (candidato) => candidato.evento)
     candidatos: Candidato[]
-
+    
     @OneToMany(() => Participantes, (participantes) => participantes.evento)
     participantes: Participantes[]
     

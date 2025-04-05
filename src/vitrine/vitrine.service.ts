@@ -1,6 +1,5 @@
 import { StatusEvento } from 'src/evento/status.enum';
 import { TipoEvento } from 'src/evento/tipo.enum';
-import { Usuarios } from 'src/usuario/usuario.entity';
 import { Inject, Injectable} from '@nestjs/common';
 import { Eventos } from '../evento/evento.entity';
 import { Repository } from 'typeorm';
@@ -12,13 +11,13 @@ export class VitrineService {
         private eventoRepository: Repository<Eventos>
       ) {}
     
-    async findTv(usuario: Usuarios): Promise<Eventos[]>{
+    async findTv(): Promise<Eventos[]>{
       const queryBuilder = this.eventoRepository.createQueryBuilder("evento");
       queryBuilder.andWhere("evento.tipo_evento = :tipo_evento", { tipo_evento: TipoEvento.INTERNO });
       queryBuilder.andWhere("evento.status_evento = :status", { status: StatusEvento.ATIVO });
       
-      queryBuilder.leftJoinAndSelect("evento.participantes", "participantes");
-      queryBuilder.leftJoinAndSelect("participantes.aluno", "aluno");
+      queryBuilder.leftJoinAndSelect("evento.candidatos", "candidato");
+      queryBuilder.leftJoinAndSelect("candidato.aluno", "aluno");
       return await queryBuilder.getMany();
     }
 }
