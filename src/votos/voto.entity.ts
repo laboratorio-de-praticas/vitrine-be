@@ -1,7 +1,7 @@
 import { Candidato } from "src/candidato/candidato.entity";
 import { Eventos } from "src/evento/evento.entity";
 import { Participantes } from "src/participante/participante.entity";
-import { Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Votos{
