@@ -3,6 +3,7 @@ import { TipoEvento } from 'src/evento/tipo.enum';
 import { Inject, Injectable} from '@nestjs/common';
 import { Eventos } from '../evento/evento.entity';
 import { Repository } from 'typeorm';
+import { query } from 'express';
 
 @Injectable()
 export class VitrineService {
@@ -18,6 +19,7 @@ export class VitrineService {
       
       queryBuilder.leftJoinAndSelect("evento.candidatos", "candidato");
       queryBuilder.leftJoinAndSelect("candidato.aluno", "aluno");
+      queryBuilder.leftJoinAndSelect("aluno.usuario", "usuario")
       return await queryBuilder.getMany();
     }
 }
