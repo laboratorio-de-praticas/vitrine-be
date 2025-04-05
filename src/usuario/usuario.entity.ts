@@ -1,5 +1,4 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { Alunos } from '../aluno/aluno.entity';
+import { Column, Entity,  PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { StatusUsuario, TipoUsuario } from '../enums';
 
 @Entity()

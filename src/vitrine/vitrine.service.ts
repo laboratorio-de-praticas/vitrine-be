@@ -1,8 +1,7 @@
 import { StatusEvento } from 'src/evento/status.enum';
 import { TipoEvento } from 'src/evento/tipo.enum';
 import { Usuarios } from 'src/usuario/usuario.entity';
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { Alunos } from '../aluno/aluno.entity';
+import { Inject, Injectable} from '@nestjs/common';
 import { Eventos } from '../evento/evento.entity';
 import { Repository } from 'typeorm';
 
