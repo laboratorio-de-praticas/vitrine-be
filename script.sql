@@ -8,18 +8,18 @@ VALUES
 
 INSERT INTO Usuarios (id, nome, data_alteracao, data_criacao, senha, email_institucional, tipo_usuario, status_usuario)
 VALUES
-(1, 'Aluno 1 DSM1', NOW(), NOW(), 'senha1', 'a1@fatec.sp.gov.br', 'Interno', 'Ativo'),
-(2, 'Aluno 2 DSM1', NOW(), NOW(), 'senha2', 'a2@fatec.sp.gov.br', 'Interno', 'Ativo'),
-(3, 'Aluno 3 DSM1', NOW(), NOW(), 'senha3', 'a3@fatec.sp.gov.br', 'Interno', 'Ativo'),
-(4, 'Aluno 4 DSM1', NOW(), NOW(), 'senha4', 'a4@fatec.sp.gov.br', 'Interno', 'Ativo'),
-(5, 'Aluno 5 DSM2', NOW(), NOW(), 'senha5', 'a5@fatec.sp.gov.br', 'Interno', 'Ativo'),
-(6, 'Aluno 6 DSM2', NOW(), NOW(), 'senha6', 'a6@fatec.sp.gov.br', 'Interno', 'Ativo'),
-(7, 'Aluno 7 DSM2', NOW(), NOW(), 'senha7', 'a7@fatec.sp.gov.br', 'Interno', 'Ativo'),
-(8, 'Aluno 8 DSM3', NOW(), NOW(), 'senha8', 'a8@fatec.sp.gov.br', 'Interno', 'Ativo'),
-(9, 'Aluno 9 DSM3', NOW(), NOW(), 'senha9', 'a9@fatec.sp.gov.br', 'Interno', 'Ativo'),
-(10, 'Aluno 10 GE1', NOW(), NOW(), 'senha10', 'a10@fatec.sp.gov.br', 'Interno', 'Ativo');
+(1, 'Aluno 1 DSM1', NOW(), NOW(), 'senha1', 'a1@fatec.sp.gov.br', 'Atendente', 'Ativo'),
+(2, 'Aluno 2 DSM1', NOW(), NOW(), 'senha2', 'a2@fatec.sp.gov.br', 'Atendente', 'Ativo'),
+(3, 'Aluno 3 DSM1', NOW(), NOW(), 'senha3', 'a3@fatec.sp.gov.br', 'Atendente', 'Ativo'),
+(4, 'Aluno 4 DSM1', NOW(), NOW(), 'senha4', 'a4@fatec.sp.gov.br', 'Atendente', 'Ativo'),
+(5, 'Aluno 5 DSM2', NOW(), NOW(), 'senha5', 'a5@fatec.sp.gov.br', 'Atendente', 'Ativo'),
+(6, 'Aluno 6 DSM2', NOW(), NOW(), 'senha6', 'a6@fatec.sp.gov.br', 'Atendente', 'Ativo'),
+(7, 'Aluno 7 DSM2', NOW(), NOW(), 'senha7', 'a7@fatec.sp.gov.br', 'Atendente', 'Ativo'),
+(8, 'Aluno 8 DSM3', NOW(), NOW(), 'senha8', 'a8@fatec.sp.gov.br', 'Atendente', 'Ativo'),
+(9, 'Aluno 9 DSM3', NOW(), NOW(), 'senha9', 'a9@fatec.sp.gov.br', 'Atendente', 'Ativo'),
+(10, 'Aluno 10 GE1', NOW(), NOW(), 'senha10', 'a10@fatec.sp.gov.br', 'Atendente', 'Ativo');
 
-INSERT INTO Alunos (id_aluno, foto_url, data_criacao, data_alteracao, data_ingresso, curso_semestre, id_usuario)
+INSERT INTO Alunos (id_aluno, foto_url, data_criacao, data_alteracao, data_ingresso, curso_semestre, fk_id_usuario)
 VALUES
 (1, '/candi4.jpg', NOW(), NOW(), '2025-01-15', 'DSM1', 1),
 (2, '/candi2.jpg', NOW(), NOW(), '2025-01-15', 'DSM1', 2),
