@@ -12,16 +12,6 @@ export const databaseProviders = [
 
       const dataSource = new DataSource({
         type: 'postgres',
-<<<<<<< HEAD
-        host: process.env.DB_HOST,
-        database: process.env.DB_NAME,
-        port: 5432,
-        username: process.env.DB_USERNAME,
-        password: process.env.DB_PASSWORD,
-        entities: [
-            __dirname + '/../**/*.entity{.ts,.js}',
-        ]
-=======
         host: process.env.DB_HOST || 'localhost',
         database: process.env.DB_NAME || 'teste2',
         synchronize: true,
@@ -29,7 +19,6 @@ export const databaseProviders = [
         username: process.env.DB_USERNAME || 'postgres',
         password: process.env.DB_PASSWORD || 'admin',
         entities: [__dirname + '/../**/*.entity{.ts,.js}'],
->>>>>>> main
       });
       return dataSource.initialize();
     },
