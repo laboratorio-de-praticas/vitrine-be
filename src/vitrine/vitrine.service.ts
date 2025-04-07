@@ -8,23 +8,29 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class VitrineService {
-    constructor(
-        @Inject('EVENTO_REPOSITORY')
-        private eventoRepository: Repository<Eventos>,
-        @Inject("ALUNO_REPOSITORY")
-        private alunoRepository: Repository<Alunos>
-      ) {}
-    
-    // Endpoint será descontinuado
-    async findRepresentantes(usuario: Usuarios): Promise<Eventos>{
-      const curso_semestre = "DSM1";
-      const queryBuilder = this.eventoRepository.createQueryBuilder("evento")
-      queryBuilder.andWhere("evento.curso_semestre = :curso_semestre", { curso_semestre: curso_semestre })
-      queryBuilder.andWhere("evento.tipo_evento = :tipo_evento", { tipo_evento: TipoEvento.INTERNO })
-      queryBuilder.andWhere("evento.status_evento = :status", { status: StatusEvento.ATIVO })
-      queryBuilder.leftJoinAndSelect("evento.participantes", "participantes");
-      queryBuilder.leftJoinAndSelect("participantes.aluno", "aluno");
-      const evento = await queryBuilder.getOne()
+  constructor(
+    @Inject('EVENTO_REPOSITORY')
+    private eventoRepository: Repository<Eventos>,
+    @Inject('ALUNO_REPOSITORY')
+    private alunoRepository: Repository<Alunos>,
+  ) {}
+
+  // Endpoint será descontinuado
+  async findRepresentantes(usuario: Usuarios): Promise<Eventos> {
+    const curso_semestre = 'DSM1';
+    const queryBuilder = this.eventoRepository.createQueryBuilder('evento');
+    queryBuilder.andWhere('evento.curso_semestre = :curso_semestre', {
+      curso_semestre: curso_semestre,
+    });
+    queryBuilder.andWhere('evento.tipo_evento = :tipo_evento', {
+      tipo_evento: TipoEvento.INTERNO,
+    });
+    queryBuilder.andWhere('evento.status_evento = :status', {
+      status: StatusEvento.ATIVO,
+    });
+    queryBuilder.leftJoinAndSelect('evento.participantes', 'participantes');
+    queryBuilder.leftJoinAndSelect('participantes.aluno', 'aluno');
+    const evento = await queryBuilder.getOne();
 
     if (!evento) {
       throw new NotFoundException(
@@ -36,24 +42,30 @@ export class VitrineService {
   }
   async findEventoAtivo(): Promise<Eventos[]> {
     const SALA_DO_ALUNO = 'nome_da_sala';
-  
+
     const eventos = await this.eventoRepository
-      .createQueryBuilder("evento")
-      .leftJoinAndSelect("evento.candidatos", "candidato")
-      .where("evento.tipo_evento = :tipo_evento", { tipo_evento: TipoEvento.INTERNO })
-      .andWhere("evento.status = :status", { status: StatusEvento.ATIVO })
-      .andWhere("evento.curso_semestre = :sala", { sala: SALA_DO_ALUNO })
+      .createQueryBuilder('evento')
+      .leftJoinAndSelect('evento.candidatos', 'candidato')
+      .where('evento.tipo_evento = :tipo_evento', {
+        tipo_evento: TipoEvento.INTERNO,
+      })
+      .andWhere('evento.status = :status', { status: StatusEvento.ATIVO })
+      .andWhere('evento.curso_semestre = :sala', { sala: SALA_DO_ALUNO })
       .getMany();
-      return eventos;
-  }    
-  
-    async findTv(usuario: Usuarios): Promise<Eventos[]>{
-      const queryBuilder = this.eventoRepository.createQueryBuilder("evento");
-      queryBuilder.andWhere("evento.tipo_evento = :tipo_evento", { tipo_evento: TipoEvento.INTERNO });
-      queryBuilder.andWhere("evento.status_evento = :status", { status: StatusEvento.ATIVO });
-      
-      queryBuilder.leftJoinAndSelect("evento.participantes", "participantes");
-      queryBuilder.leftJoinAndSelect("participantes.aluno", "aluno");
-      return await queryBuilder.getMany();
-    }
+    return eventos;
+  }
+
+  async findTv(usuario: Usuarios): Promise<Eventos[]> {
+    const queryBuilder = this.eventoRepository.createQueryBuilder('evento');
+    queryBuilder.andWhere('evento.tipo_evento = :tipo_evento', {
+      tipo_evento: TipoEvento.INTERNO,
+    });
+    queryBuilder.andWhere('evento.status_evento = :status', {
+      status: StatusEvento.ATIVO,
+    });
+
+    queryBuilder.leftJoinAndSelect('evento.participantes', 'participantes');
+    queryBuilder.leftJoinAndSelect('participantes.aluno', 'aluno');
+    return await queryBuilder.getMany();
+  }
 }
