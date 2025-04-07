@@ -13,8 +13,7 @@ export const databaseProviders = [
       const dataSource = new DataSource({
         type: 'postgres',
         host: process.env.DB_HOST || 'localhost',
-        database: process.env.DB_NAME || 'teste2',
-        synchronize: true,
+        database: process.env.DB_NAME || 'teste',
         port: validDbPort,
         username: process.env.DB_USERNAME || 'postgres',
         password: process.env.DB_PASSWORD || 'admin',
