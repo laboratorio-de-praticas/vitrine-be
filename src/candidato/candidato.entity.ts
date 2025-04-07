@@ -5,31 +5,31 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 import { SituacaoCandidato } from "./candidato.enum";
 
 @Entity()
-export class Candidato{
-    @PrimaryGeneratedColumn()
-    id: number
+export class Candidato {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    data_alteracao: Date
+  @Column()
+  data_alteracao: Date;
 
-    @Column()
-    data_criacao: Date
+  @Column()
+  data_criacao: Date;
 
-    @Column({length: 255})
-    situacao_candidato: SituacaoCandidato
+  @Column({ length: 255 })
+  situacao_candidato: SituacaoCandidato;
 
-    @Column({length: 255})
-    qrcode: String
+  @Column({ length: 255 })
+  qrcode: String;
 
-    @ManyToOne(() => Eventos, (evento) => evento.candidatos)
-    @JoinColumn({ name: 'id_evento' }) 
-    evento: Eventos
+  @ManyToOne(() => Eventos, (evento) => evento.candidatos)
+  @JoinColumn({ name: 'id_evento' })
+  evento: Eventos;
 
-    @ManyToOne(() => Alunos, (alunos) => alunos.candidatos)
-    @JoinColumn({ name: 'id_aluno' }) 
-    aluno: Alunos
+  @ManyToOne(() => Alunos, (alunos) => alunos.candidatos)
+  @JoinColumn({ name: 'id_aluno' })
+  aluno: Alunos;
 
-    @OneToMany(() => Votos, (votos) => votos.candidato)
-    votos: Votos[]
+  @OneToMany(() => Votos, (votos) => votos.candidato)
+  votos: Votos[]
     
 }

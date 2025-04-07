@@ -1,4 +1,4 @@
-export enum SituacaoCandidato{
-    ATIVO = "Ativo",
-    Pendente = "Pendente"
+export enum SituacaoCandidato {
+  ATIVO = 'Ativo',
+  Pendente = 'Pendente',
 }

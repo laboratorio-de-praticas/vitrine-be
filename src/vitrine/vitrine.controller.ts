@@ -1,4 +1,10 @@
-import { Controller, Get, Request, UseGuards, UseInterceptors } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Request,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { VitrineService } from './vitrine.service';
 
 import { Eventos } from 'src/evento/evento.entity';
