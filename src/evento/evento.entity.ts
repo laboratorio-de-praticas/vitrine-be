@@ -31,18 +31,12 @@ export class Eventos {
   @Column()
   data_criacao: Date;
 
-  @Column()
-  data_inicio: Date;
-
-  @Column()
-  data_fim: Date;
-
   @OneToMany(() => Candidato, (candidato) => candidato.evento)
-  candidatos: Candidato[];
-
+  candidatos: Candidato[]
+    
   @OneToMany(() => Participantes, (participantes) => participantes.evento)
-  participantes: Participantes[];
-
+  participantes: Participantes[]
+    
   @OneToMany(() => Votos, (votos) => votos.evento)
-  votos: Votos[];
+  votos: Votos[]
 }

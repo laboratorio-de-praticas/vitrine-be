@@ -1,16 +1,8 @@
-import { Alunos } from 'src/aluno/aluno.entity';
-import { Eventos } from 'src/evento/evento.entity';
-import { Projetos } from 'src/projeto/projeto.entity';
-import { Votos } from 'src/votos/voto.entity';
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { SituacaoCandidato } from './candidato.enum';
+import { Alunos } from "src/aluno/aluno.entity";
+import { Eventos } from "src/evento/evento.entity";
+import { Votos } from "src/votos/voto.entity";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { SituacaoCandidato } from "./candidato.enum";
 
 @Entity()
 export class Candidato {
@@ -37,10 +29,7 @@ export class Candidato {
   @JoinColumn({ name: 'id_aluno' })
   aluno: Alunos;
 
-  @ManyToOne(() => Projetos, (projetos) => projetos.candidatos)
-  @JoinColumn({ name: 'id_projeto' })
-  projeto: Projetos;
-
   @OneToMany(() => Votos, (votos) => votos.candidato)
-  votos: Votos[];
+  votos: Votos[]
+    
 }

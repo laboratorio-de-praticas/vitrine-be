@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity,  PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { StatusUsuario, TipoUsuario } from '../enums';
 
 @Entity()
