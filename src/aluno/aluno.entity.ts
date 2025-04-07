@@ -23,15 +23,13 @@ export class Alunos {
   @Column()
   curso_semestre: String;
 
-    @OneToOne(() => Usuarios)
-    @JoinColumn({ name: 'fk_id_usuario' })
-    usuario: Usuarios
-
-    @OneToMany(() => Candidato, (candidato) => candidato.aluno)
-    candidatos: Candidato[]
+  @OneToOne(() => Usuarios)
+  @JoinColumn({ name: 'fk_id_usuario' })
+  usuario: Usuarios
 
   @OneToMany(() => Candidato, (candidato) => candidato.aluno)
-  candidatos: Candidato[];
+  candidatos: Candidato[]
+
 
   @OneToMany(() => Participantes, (participantes) => participantes.aluno)
   participantes: Participantes[];
