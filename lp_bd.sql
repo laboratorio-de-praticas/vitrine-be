@@ -1,120 +1,130 @@
-create type usuarioTipos as Enum ('Admin', 'Atendente');
-create type eventoTipos as Enum ('Externo', 'Interno');
-create type eventoStatus as Enum('Ativo', 'Em_Preparo', 'Em_Contagem', 'Finalizado');
-create type candidatoSituacao as Enum('Pendente', 'Ativo', 'Encerrado');
-create type usuarioStatus as Enum('Pendente', 'Ativo', 'Desligado');
+CREATE TYPE "UsuarioTipos" AS ENUM ('Admin', 'Atendente', 'Interno');
+CREATE TYPE "UsuarioStatus" AS ENUM ('Pendente', 'Ativo', 'Desligado');
+CREATE TYPE "RepresentanteSituacao" AS ENUM ('Pendente', 'Ativo', 'Desligado');
+CREATE TYPE "EventoStatus" AS ENUM ('Ativo', 'Em_Preparo', 'Em_Contagem', 'Finalizado');
+CREATE TYPE "EventoTipos" AS ENUM ('Externo', 'Interno');
 
-create table Usuarios(
-id SERIAL PRIMARY KEY,
-nome VARCHAR(250),
-senha VARCHAR(400),
-email_institucional VARCHAR(250),
-tipo_usuario usuarioTipos,
-status_usuario usuarioStatus,
-data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE "Usuarios" (
+  id SERIAL PRIMARY KEY,
+  nome TEXT,
+  senha TEXT,
+  email_institucional TEXT UNIQUE,
+  tipo_usuario "UsuarioTipos" NOT NULL,
+  status_usuario "UsuarioStatus" NOT NULL,
+  data_criacao TIMESTAMP DEFAULT now(),
+  data_alteracao TIMESTAMP DEFAULT now()
 );
 
-create table Projetos(
-id_projeto SERIAL PRIMARY KEY,
-titulo VARCHAR(255) NOT NULL,
-descricao VARCHAR(200) NOT NULL,
-data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE "Alunos" (
+  id_aluno SERIAL PRIMARY KEY,
+  fk_id_usuario INT UNIQUE NOT NULL REFERENCES "Usuarios"(id),
+  foto_url TEXT,
+  data_matricula TIMESTAMP,
+  curso_semestre TEXT,
+  data_criacao TIMESTAMP DEFAULT now(),
+  data_alteracao TIMESTAMP DEFAULT now()
 );
 
-create table Fotos_Projetos(
-id_foto_projeto SERIAL PRIMARY KEY,
-foto_url VARCHAR(300),
-foto_extensao VARCHAR(30),
-fk_id_projeto INT,
-data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-FOREIGN KEY (fk_id_projeto) REFERENCES Projetos(id_projeto)
+CREATE TABLE "Visitantes" (
+  id_visitante SERIAL PRIMARY KEY,
+  nome TEXT,
+  telefone TEXT,
+  chave_acesso CHAR(4),
+  data_criacao TIMESTAMP DEFAULT now(),
+  data_alteracao TIMESTAMP DEFAULT now()
 );
 
-create table Categorias (
-id_categoria SERIAL PRIMARY KEY,
-nome VARCHAR(120),
-descricao TEXT,
-data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE "Avaliadores" (
+  id_avaliador SERIAL PRIMARY KEY,
+  fk_id_usuario INT UNIQUE NOT NULL REFERENCES "Usuarios"(id),
+  nome TEXT,
+  telefone TEXT,
+  data_criacao TIMESTAMP DEFAULT now(),
+  data_alteracao TIMESTAMP DEFAULT now()
 );
 
-create table Categorias_Projetos(
-id SERIAL PRIMARY KEY,
-fk_id_projeto INT,
-fk_id_categoria INT,
-FOREIGN KEY (fk_id_projeto) REFERENCES Projetos(id_projeto),
-FOREIGN KEY (fk_id_categoria) REFERENCES Categorias(id_categoria),
-UNIQUE(id, fk_id_projeto, fk_id_categoria),
-data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE "Projetos" (
+  id_projeto SERIAL PRIMARY KEY,
+  titulo TEXT NOT NULL,
+  descricao TEXT NOT NULL,
+  qrcode TEXT,
+  foto_url TEXT,
+  data_criacao TIMESTAMP DEFAULT now(),
+  data_alteracao TIMESTAMP DEFAULT now(),
+  fk_id_aluno INT NOT NULL REFERENCES "Alunos"(id_aluno)
 );
 
-create table Alunos(
-id_aluno SERIAL PRIMARY KEY,
-foto_url VARCHAR(300),
-data_ingresso  TIMESTAMP,
-data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-curso_semestre VARCHAR(50),
-fk_id_usuario INT,
-FOREIGN KEY (fk_id_usuario) REFERENCES Usuarios(id)
+CREATE TABLE "Categorias" (
+  id_categoria SERIAL PRIMARY KEY,
+  nome TEXT,
+  descricao TEXT,
+  data_criacao TIMESTAMP DEFAULT now(),
+  data_alteracao TIMESTAMP DEFAULT now()
 );
 
-
-create table Visitantes(
-id_visitante SERIAL PRIMARY KEY,
-nome_social VARCHAR(200),
-celular VARCHAR(12),
-data_nascimento TIMESTAMP, 
-chave_acesso VARCHAR(4) CHECK (chave_acesso ~ '^\d{4}$')
+CREATE TABLE "CategoriasProjetos" (
+  id SERIAL PRIMARY KEY,
+  fk_id_projeto INT NOT NULL REFERENCES "Projetos"(id_projeto),
+  fk_id_categoria INT NOT NULL REFERENCES "Categorias"(id_categoria),
+  data_criacao TIMESTAMP DEFAULT now(),
+  data_alteracao TIMESTAMP DEFAULT now(),
+  UNIQUE(fk_id_projeto, fk_id_categoria)
 );
 
-create table Eventos(
-id_evento SERIAL PRIMARY KEY,
-tipo_evento eventoTipos,
-nome_evento VARCHAR(255),
-descricao_evento TEXT,
-status_evento eventoStatus,
-curso_semestre VARCHAR(50),
-data_inicio TIMESTAMP,
-data_fim TIMESTAMP,
-data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-CREATE TABLE Candidato (
-    id SERIAL PRIMARY KEY,
-    id_aluno INT,
-    id_projeto INT,
-    id_evento INT,
-    qrcode VARCHAR(255),
-    situacao_candidato candidatoSituacao,
-    data_criacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    data_alteracao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_aluno) REFERENCES Alunos(id_aluno),
-    FOREIGN KEY (id_projeto) REFERENCES Projetos(id_projeto),
-    FOREIGN KEY (id_evento) REFERENCES Eventos(id_evento)
+CREATE TABLE "Eventos" (
+  id_evento SERIAL PRIMARY KEY,
+  tipo_evento "EventoTipos" NOT NULL,
+  nome_evento TEXT,
+  descricao_evento TEXT,
+  status_evento "EventoStatus" NOT NULL,
+  curso_semestre TEXT,
+  data_inicio TIMESTAMP,
+  data_fim TIMESTAMP,
+  data_criacao TIMESTAMP DEFAULT now(),
+  data_alteracao TIMESTAMP DEFAULT now()
 );
 
-create table Participantes (
-	id_participante SERIAL PRIMARY KEY,
-	id_aluno INT,
-	id_visitante INT,
-	id_evento INT,
-	avaliador boolean,
-	FOREIGN KEY (id_aluno) REFERENCES Alunos(id_aluno),
-	FOREIGN KEY (id_visitante) REFERENCES Visitantes(id_visitante),
-	FOREIGN KEY (id_evento) REFERENCES Eventos(id_evento)
-); 
+CREATE TABLE "Representantes" (
+  id_representante SERIAL PRIMARY KEY,
+  fk_id_aluno INT UNIQUE NOT NULL REFERENCES "Alunos"(id_aluno),
+  fk_id_evento INT NOT NULL REFERENCES "Eventos"(id_evento),
+  qrcode TEXT,
+  RepresentanteSituacao "RepresentanteSituacao" NOT NULL,
+  data_criacao TIMESTAMP DEFAULT now(),
+  data_alteracao TIMESTAMP DEFAULT now()
+);
 
-create table Votos(
-id_voto SERIAL PRIMARY KEY,
-id_candidato INT,
-id_participante INT,
-id_evento INT,
-FOREIGN KEY (id_evento) REFERENCES Eventos(id_evento),
-FOREIGN KEY (id_participante) REFERENCES Participantes(id_participante),
-FOREIGN KEY (id_candidato) REFERENCES Candidato(id)
+CREATE TABLE "VotosInternos" (
+  id_voto SERIAL PRIMARY KEY,
+  fk_id_evento INT NOT NULL REFERENCES "Eventos"(id_evento),
+  fk_id_aluno INT NOT NULL REFERENCES "Alunos"(id_aluno), 
+  fk_id_representante INT NOT NULL REFERENCES "Representantes"(id_representante),
+  data_criacao TIMESTAMP DEFAULT now(),
+  UNIQUE(fk_id_evento, fk_id_aluno)
+);
+
+CREATE TABLE "VotosExternos" (
+  id_voto SERIAL PRIMARY KEY,
+  fk_id_evento INT NOT NULL REFERENCES "Eventos"(id_evento),
+  fk_id_projeto INT NOT NULL REFERENCES "Projetos"(id_projeto),
+  fk_id_visitante INT REFERENCES "Visitantes"(id_visitante),
+  fk_id_avaliador INT REFERENCES "Avaliadores"(id_avaliador),
+  data_criacao TIMESTAMP DEFAULT now(),
+  CONSTRAINT chk_autor_unico CHECK (
+    (fk_id_visitante IS NOT NULL AND fk_id_avaliador IS NULL) OR
+    (fk_id_visitante IS NULL AND fk_id_avaliador IS NOT NULL)
+  ),
+  UNIQUE(fk_id_evento, fk_id_visitante, fk_id_projeto),
+  UNIQUE(fk_id_evento, fk_id_avaliador, fk_id_projeto)
+);
+
+CREATE TABLE "Avaliacoes" (
+  id_avaliacao SERIAL PRIMARY KEY,
+  fk_id_avaliador INT NOT NULL REFERENCES "Avaliadores"(id_avaliador),
+  fk_id_projeto INT NOT NULL REFERENCES "Projetos"(id_projeto),
+  estrelas_inovador INT NOT NULL,
+  estrelas_acolhedor INT NOT NULL,
+  comentario TEXT,
+  data_criacao TIMESTAMP DEFAULT now(),
+  data_alteracao TIMESTAMP DEFAULT now()
 );
