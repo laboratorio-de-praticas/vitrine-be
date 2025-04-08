@@ -1,10 +1,11 @@
-import { Column, Entity,  PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
-import { StatusUsuario, TipoUsuario } from '../enums';
+import { Column, Entity,  PrimaryGeneratedColumn } from 'typeorm';
+import { TipoUsuario } from './tipo.enum';
+import { StatusUsuario } from './status.enum';
 
-@Entity()
-export class Usuarios {
-  @PrimaryGeneratedColumn()
-  id: number;
+@Entity('Usuarios')
+export class Usuarios{
+    @PrimaryGeneratedColumn()
+    id: number
 
   @Column({ length: 255 })
   nome: String;

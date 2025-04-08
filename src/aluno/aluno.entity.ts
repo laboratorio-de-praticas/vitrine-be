@@ -1,12 +1,11 @@
-import { Candidato } from "src/candidato/candidato.entity";
-import { Participantes } from "src/participante/participante.entity";
+import { Representantes } from "src/representante/representante.entity";
 import { Usuarios } from "src/usuario/usuario.entity";
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
-export class Alunos {
-  @PrimaryGeneratedColumn()
-  id_aluno: Number;
+@Entity('Alunos')
+export class Alunos{
+    @PrimaryGeneratedColumn()
+    id_aluno: Number
 
   @Column()
   foto_url: String;
@@ -17,20 +16,16 @@ export class Alunos {
   @Column()
   data_alteracao: Date;
 
-  @Column()
-  data_ingresso: Date;
+    @Column()
+    data_matricula: Date
+    
+    @Column()
+    curso_semestre: String
 
-  @Column()
-  curso_semestre: String;
+    @OneToOne(() => Usuarios)
+    @JoinColumn({ name: 'fk_id_usuario' })
+    usuario: Usuarios
 
-  @OneToOne(() => Usuarios)
-  @JoinColumn({ name: 'fk_id_usuario' })
-  usuario: Usuarios
-
-  @OneToMany(() => Candidato, (candidato) => candidato.aluno)
-  candidatos: Candidato[]
-
-
-  @OneToMany(() => Participantes, (participantes) => participantes.aluno)
-  participantes: Participantes[];
+    @OneToMany(() => Representantes, (representante) => representante.evento)
+    representantes: Representantes[]
 }
