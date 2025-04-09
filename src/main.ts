@@ -9,7 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const VITRINE_FE_PORT = process.env.VITRINE_FE_PORT || '3000';
-  const allowedOrigin = `http://127.0.0.1:${VITRINE_FE_PORT}`;
+  const allowedOrigin = `http://localhost:${VITRINE_FE_PORT}`;
 
   app.enableCors({
     origin: allowedOrigin,
