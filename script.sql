@@ -22,13 +22,13 @@ VALUES
 INSERT INTO "Representantes" (id_representante, data_alteracao, data_criacao, representantesituacao, qrcode, fk_id_evento, fk_id_aluno)
 VALUES
 (1, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/1', 1, 1),
-(2, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/2/1', 1, 2),
-(3, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/3/1', 1, 3),
-(4, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/4/1', 1, 4);
+(2, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/1', 1, 2),
+(3, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/1', 1, 3),
+(4, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/1', 1, 4);
 
 INSERT INTO "Projetos" (id_projeto, fk_id_aluno, titulo, descricao, qrcode, foto_url) VALUES 
 (1, 2, 'Tagarela', 'Projeto para auxílio de crianças com espectro autista.', 'http://10.67.56.95:3000/votacao/publica/confirmacao/avaliador/classificacao/id_projeto/id_evento/1/1', './sunside.png'),
-(2, 1,'EcoVision', 'Projeto para auxílio nos cuidados de plantas ornamentais.', 'http://10.67.56.95:3000/votacao/publica/confirmacao/convidado/id_projeto/id_evento/2/1', './ecovision.png');
+(2, 1,'EcoVision', 'Projeto para auxílio nos cuidados de plantas ornamentais.', 'http://10.67.56.95:3000/votacao/publica/confirmacao/convidado/id_projeto/id_evento/1/1', './ecovision.png');
 
 INSERT INTO "Visitantes" VALUES (1, 'Renato Odake', '13123451234', '1234', NOW(), NOW());
 
