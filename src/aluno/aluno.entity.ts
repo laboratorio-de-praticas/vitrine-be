@@ -2,7 +2,7 @@ import { Representantes } from "src/representante/representante.entity";
 import { Usuarios } from "src/usuario/usuario.entity";
 import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity('Alunos')
+@Entity('Aluno')
 export class Alunos{
     @PrimaryGeneratedColumn()
     id_aluno: Number

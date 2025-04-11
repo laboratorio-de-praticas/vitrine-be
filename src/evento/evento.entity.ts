@@ -3,7 +3,7 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { TipoEvento } from "./tipo.enum";
 import { StatusEvento } from "./status.enum";
 
-@Entity('Eventos')
+@Entity('Evento')
 export class Eventos{
     @PrimaryGeneratedColumn()
     id_evento: number

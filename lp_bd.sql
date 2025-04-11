@@ -4,7 +4,7 @@ CREATE TYPE "RepresentanteSituacao" AS ENUM ('Pendente', 'Ativo', 'Desligado');
 CREATE TYPE "EventoStatus" AS ENUM ('Ativo', 'Em_Preparo', 'Em_Contagem', 'Finalizado');
 CREATE TYPE "EventoTipos" AS ENUM ('Externo', 'Interno');
 
-CREATE TABLE "Usuarios" (
+CREATE TABLE "Usuario" (
   id SERIAL PRIMARY KEY,
   nome TEXT,
   senha TEXT,
@@ -15,9 +15,9 @@ CREATE TABLE "Usuarios" (
   data_alteracao TIMESTAMP DEFAULT now()
 );
 
-CREATE TABLE "Alunos" (
+CREATE TABLE "Aluno" (
   id_aluno SERIAL PRIMARY KEY,
-  fk_id_usuario INT UNIQUE NOT NULL REFERENCES "Usuarios"(id),
+  fk_id_usuario INT UNIQUE NOT NULL REFERENCES "Usuario"(id),
   foto_url TEXT,
   data_matricula TIMESTAMP,
   curso_semestre TEXT,
@@ -25,7 +25,7 @@ CREATE TABLE "Alunos" (
   data_alteracao TIMESTAMP DEFAULT now()
 );
 
-CREATE TABLE "Visitantes" (
+CREATE TABLE "Visitante" (
   id_visitante SERIAL PRIMARY KEY,
   nome TEXT,
   telefone TEXT,
@@ -34,16 +34,16 @@ CREATE TABLE "Visitantes" (
   data_alteracao TIMESTAMP DEFAULT now()
 );
 
-CREATE TABLE "Avaliadores" (
+CREATE TABLE "Avaliador" (
   id_avaliador SERIAL PRIMARY KEY,
-  fk_id_usuario INT UNIQUE NOT NULL REFERENCES "Usuarios"(id),
+  fk_id_usuario INT UNIQUE NOT NULL REFERENCES "Usuario"(id),
   nome TEXT,
   telefone TEXT,
   data_criacao TIMESTAMP DEFAULT now(),
   data_alteracao TIMESTAMP DEFAULT now()
 );
 
-CREATE TABLE "Projetos" (
+CREATE TABLE "Projeto" (
   id_projeto SERIAL PRIMARY KEY,
   titulo TEXT NOT NULL,
   descricao TEXT NOT NULL,
@@ -51,10 +51,10 @@ CREATE TABLE "Projetos" (
   foto_url TEXT,
   data_criacao TIMESTAMP DEFAULT now(),
   data_alteracao TIMESTAMP DEFAULT now(),
-  fk_id_aluno INT NOT NULL REFERENCES "Alunos"(id_aluno)
+  fk_id_aluno INT NOT NULL REFERENCES "Aluno"(id_aluno)
 );
 
-CREATE TABLE "Categorias" (
+CREATE TABLE "Categoria" (
   id_categoria SERIAL PRIMARY KEY,
   nome TEXT,
   descricao TEXT,
@@ -64,14 +64,14 @@ CREATE TABLE "Categorias" (
 
 CREATE TABLE "CategoriasProjetos" (
   id SERIAL PRIMARY KEY,
-  fk_id_projeto INT NOT NULL REFERENCES "Projetos"(id_projeto),
-  fk_id_categoria INT NOT NULL REFERENCES "Categorias"(id_categoria),
+  fk_id_projeto INT NOT NULL REFERENCES "Projeto"(id_projeto),
+  fk_id_categoria INT NOT NULL REFERENCES "Categoria"(id_categoria),
   data_criacao TIMESTAMP DEFAULT now(),
   data_alteracao TIMESTAMP DEFAULT now(),
   UNIQUE(fk_id_projeto, fk_id_categoria)
 );
 
-CREATE TABLE "Eventos" (
+CREATE TABLE "Evento" (
   id_evento SERIAL PRIMARY KEY,
   tipo_evento "EventoTipos" NOT NULL,
   nome_evento TEXT,
@@ -84,31 +84,31 @@ CREATE TABLE "Eventos" (
   data_alteracao TIMESTAMP DEFAULT now()
 );
 
-CREATE TABLE "Representantes" (
+CREATE TABLE "Representante" (
   id_representante SERIAL PRIMARY KEY,
-  fk_id_aluno INT UNIQUE NOT NULL REFERENCES "Alunos"(id_aluno),
-  fk_id_evento INT NOT NULL REFERENCES "Eventos"(id_evento),
+  fk_id_aluno INT UNIQUE NOT NULL REFERENCES "Aluno"(id_aluno),
+  fk_id_evento INT NOT NULL REFERENCES "Evento"(id_evento),
   qrcode TEXT,
   RepresentanteSituacao "RepresentanteSituacao" NOT NULL,
   data_criacao TIMESTAMP DEFAULT now(),
   data_alteracao TIMESTAMP DEFAULT now()
 );
 
-CREATE TABLE "VotosInternos" (
+CREATE TABLE "VotosInterno" (
   id_voto SERIAL PRIMARY KEY,
-  fk_id_evento INT NOT NULL REFERENCES "Eventos"(id_evento),
-  fk_id_aluno INT NOT NULL REFERENCES "Alunos"(id_aluno), 
-  fk_id_representante INT NOT NULL REFERENCES "Representantes"(id_representante),
+  fk_id_evento INT NOT NULL REFERENCES "Evento"(id_evento),
+  fk_id_aluno INT NOT NULL REFERENCES "Aluno"(id_aluno), 
+  fk_id_representante INT NOT NULL REFERENCES "Representante"(id_representante),
   data_criacao TIMESTAMP DEFAULT now(),
   UNIQUE(fk_id_evento, fk_id_aluno)
 );
 
-CREATE TABLE "VotosExternos" (
+CREATE TABLE "VotosExterno" (
   id_voto SERIAL PRIMARY KEY,
-  fk_id_evento INT NOT NULL REFERENCES "Eventos"(id_evento),
-  fk_id_projeto INT NOT NULL REFERENCES "Projetos"(id_projeto),
-  fk_id_visitante INT REFERENCES "Visitantes"(id_visitante),
-  fk_id_avaliador INT REFERENCES "Avaliadores"(id_avaliador),
+  fk_id_evento INT NOT NULL REFERENCES "Evento"(id_evento),
+  fk_id_projeto INT NOT NULL REFERENCES "Projeto"(id_projeto),
+  fk_id_visitante INT REFERENCES "Visitante"(id_visitante),
+  fk_id_avaliador INT REFERENCES "Avaliador"(id_avaliador),
   data_criacao TIMESTAMP DEFAULT now(),
   CONSTRAINT chk_autor_unico CHECK (
     (fk_id_visitante IS NOT NULL AND fk_id_avaliador IS NULL) OR
@@ -118,10 +118,10 @@ CREATE TABLE "VotosExternos" (
   UNIQUE(fk_id_evento, fk_id_avaliador, fk_id_projeto)
 );
 
-CREATE TABLE "Avaliacoes" (
+CREATE TABLE "Avaliacao" (
   id_avaliacao SERIAL PRIMARY KEY,
-  fk_id_avaliador INT NOT NULL REFERENCES "Avaliadores"(id_avaliador),
-  fk_id_projeto INT NOT NULL REFERENCES "Projetos"(id_projeto),
+  fk_id_avaliador INT NOT NULL REFERENCES "Avaliador"(id_avaliador),
+  fk_id_projeto INT NOT NULL REFERENCES "Projeto"(id_projeto),
   estrelas_inovador INT NOT NULL,
   estrelas_acolhedor INT NOT NULL,
   comentario TEXT,

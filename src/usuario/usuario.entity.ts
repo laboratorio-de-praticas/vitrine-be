@@ -2,7 +2,7 @@ import { Column, Entity,  PrimaryGeneratedColumn } from 'typeorm';
 import { TipoUsuario } from './tipo.enum';
 import { StatusUsuario } from './status.enum';
 
-@Entity('Usuarios')
+@Entity('Usuario')
 export class Usuarios{
     @PrimaryGeneratedColumn()
     id: number

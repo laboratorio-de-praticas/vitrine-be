@@ -3,7 +3,7 @@ import { Eventos } from "src/evento/evento.entity";
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 import { RepresentanteSituacao } from "./representante.enum";
 
-@Entity('Representantes')
+@Entity('Representante')
 export class Representantes{
     @PrimaryGeneratedColumn()
     id_representante: number
