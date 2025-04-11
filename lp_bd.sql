@@ -89,7 +89,7 @@ CREATE TABLE "Representante" (
   fk_id_aluno INT UNIQUE NOT NULL REFERENCES "Aluno"(id_aluno),
   fk_id_evento INT NOT NULL REFERENCES "Evento"(id_evento),
   qrcode TEXT,
-  RepresentanteSituacao "RepresentanteSituacao" NOT NULL,
+  "RepresentanteSituacao" "RepresentanteSituacao" NOT NULL,
   data_criacao TIMESTAMP DEFAULT now(),
   data_alteracao TIMESTAMP DEFAULT now()
 );
@@ -151,7 +151,7 @@ VALUES
 (3, '/candi1.jpg', NOW(), NOW(), '2025-01-15', 'DSM5', 3),
 (4, '/candi3.jpg', NOW(), NOW(), '2025-01-15', 'DSM5', 4);
 
-INSERT INTO "Representante" (id_representante, data_alteracao, data_criacao, representantesituacao, qrcode, fk_id_evento, fk_id_aluno)
+INSERT INTO "Representante" (id_representante, data_alteracao, data_criacao, "RepresentanteSituacao", qrcode, fk_id_evento, fk_id_aluno)
 VALUES
 (1, NOW(), NOW(), 'Ativo', 'http://3.82.243.65:3000/votacao/interna/confirmacao/1/1', 1, 1),
 (2, NOW(), NOW(), 'Ativo', 'http://3.82.243.65:3000/votacao/interna/confirmacao/2/1', 1, 2),
