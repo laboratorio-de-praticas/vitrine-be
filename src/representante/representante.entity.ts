@@ -14,7 +14,7 @@ export class Representantes{
     @Column()
     data_criacao: Date
 
-    @Column({length: 255, name: "representantesituacao"})
+    @Column({length: 255, name: "RepresentanteSituacao"})
     representante_situacao: RepresentanteSituacao
 
     @Column({length: 255})

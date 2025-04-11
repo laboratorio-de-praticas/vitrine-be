@@ -1,8 +1,8 @@
 INSERT INTO "Evento" (id_evento, nome_evento, tipo_evento, descricao_evento, status_evento, curso_semestre, data_alteracao, data_criacao, data_inicio, data_fim)
 VALUES
-(1, 'Representante de Classe', 'Interno', 'Evento para alunos DSM5', 'Ativo', 'DSM5', NOW(), NOW(), '2025-05-01', '2025-05-02'),
-(2, 'Representante de Classe', 'Interno', 'Evento para alunos GE1', 'Ativo', 'GE1', NOW(), NOW(), '2025-08-01', '2025-08-02'),
-(3, 'FATEC HUB', 'Externo', 'Evento da Fatec Hub', 'Ativo', null, NOW(), NOW(), '2025-08-01', '2025-08-02');
+(1, 'Representante de Classe', 'Interno', 'Evento para alunos DSM5', 'Ativo', 'DSM5', NOW(), NOW(), '2025-11-04', '2025-12-04'),
+(2, 'Representante de Classe', 'Interno', 'Evento para alunos GE1', 'Ativo', 'GE1', NOW(), NOW(), '2025-11-04', '2025-12-04'),
+(3, 'FATEC HUB', 'Externo', 'Evento da Fatec Hub', 'Ativo', null, NOW(), NOW(), '2025-11-04', '2025-12-04');
 
 INSERT INTO "Usuario" (id, nome, data_alteracao, data_criacao, senha, email_institucional, tipo_usuario, status_usuario)
 VALUES
