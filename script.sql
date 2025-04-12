@@ -1,8 +1,9 @@
+
+
 INSERT INTO "Eventos" (id_evento, nome_evento, tipo_evento, descricao_evento, status_evento, curso_semestre, data_alteracao, data_criacao, data_inicio, data_fim)
 VALUES
 (1, 'Representante de Classe', 'Interno', 'Evento para alunos DSM5', 'Ativo', 'DSM5', NOW(), NOW(), '2025-05-01', '2025-05-02'),
-(2, 'Representante de Classe', 'Interno', 'Evento para alunos GE1', 'Ativo', 'GE1', NOW(), NOW(), '2025-08-01', '2025-08-02'),
-(3, 'FATEC HUB', 'Externo', 'Evento da Fatec Hub', 'Ativo', null, NOW(), NOW(), '2025-08-01', '2025-08-02');
+(2, 'Representante de Classe', 'Interno', 'Evento para alunos GE1', 'Ativo', 'GE1', NOW(), NOW(), '2025-08-01', '2025-08-02');
 
 INSERT INTO "Usuarios" (id, nome, data_alteracao, data_criacao, senha, email_institucional, tipo_usuario, status_usuario)
 VALUES
@@ -22,14 +23,93 @@ VALUES
 INSERT INTO "Representantes" (id_representante, data_alteracao, data_criacao, representantesituacao, qrcode, fk_id_evento, fk_id_aluno)
 VALUES
 (1, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/1', 1, 1),
-(2, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/1', 1, 2),
-(3, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/1', 1, 3),
-(4, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/1', 1, 4);
+(2, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/2', 1, 2),
+(3, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/3', 1, 3),
+(4, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/4', 1, 4);
 
-INSERT INTO "Projetos" (id_projeto, fk_id_aluno, titulo, descricao, qrcode, foto_url) VALUES 
-(1, 2, 'Tagarela', 'Projeto para auxílio de crianças com espectro autista.', 'http://10.67.56.95:3000/votacao/publica/confirmacao/avaliador/classificacao/id_projeto/id_evento/1/1', './sunside.png'),
-(2, 1,'EcoVision', 'Projeto para auxílio nos cuidados de plantas ornamentais.', 'http://10.67.56.95:3000/votacao/publica/confirmacao/convidado/id_projeto/id_evento/1/1', './ecovision.png');
 
-INSERT INTO "Visitantes" VALUES (1, 'Renato Odake', '13123451234', '1234', NOW(), NOW());
 
-INSERT INTO "Avaliadores" VALUES(1, 5, 'Hioji Okamoto', '13123451234', NOW(), NOW());
+INSERT INTO "Categorias" (descricao) VALUES
+('Comunicação'),
+('Cultura'),
+('Direitos humanos e justiça'),
+('Educação'),
+('Meio ambiente'),
+('Saúde'),
+('Tecnologia e Produção');
+
+-- Inserir Linhas de Extensão
+INSERT INTO "LinhaExtensao" (descricao) VALUES
+('Alfabetização, leitura e escrita'),
+('Artes cênicas'),
+('Artes integradas'),
+('Artes plásticas'),
+('Artes visuais'),
+('Comunicação estratégica'),
+('Desenvolvimento de produtos'),
+('Desenvolvimento regional'),
+('Desenvolvimento rural e questão agrária'),
+('Desenvolvimento tecnológico'),
+('Desenvolvimento urbano'),
+('Direitos individuais e coletivos'),
+('Educação profissional'),
+('Empreendedorismo'),
+('Emprego e renda'),
+('Endemias e epidemias'),
+('Divulgação científica e tecnológica'),
+('Esporte e lazer'),
+('Estilismo'),
+('Fármacos e medicamentos'),
+('Formação de professores'),
+('Gestão do trabalho'),
+('Gestão informacional'),
+('Gestão institucional'),
+('Gestão pública'),
+('Grupos sociais vulneráveis'),
+('Infância e adolescência'),
+('Inovação tecnológica'),
+('Jornalismo'),
+('Jovens e adultos'),
+('Línguas Estrangeiras'),
+('Metodologias e estratégias de ensino/aprendizagem'),
+('Mídia-artes'),
+('Mídias'),
+('Música'),
+('Organizações da sociedade civil e movimentos sociais e populares'),
+('Patrimônio cultural, histórico e natural'),
+('Pessoas com deficiências, incapacidades e necessidades especiais'),
+('Propriedade intelectual e patente'),
+('Questões ambientais'),
+('Recursos hídricos'),
+('Resíduos sólidos'),
+('Saúde animal'),
+('Saúde da família'),
+('Saúde e proteção no trabalho'),
+('Saúde humana'),
+('Segurança alimentar e nutricional'),
+('Segurança pública e defesa social'),
+('Tecnologia da informação'),
+('Terceira Idade'),
+('Turismo'),
+('Uso de drogas e dependência química'),
+('Desenvolvimento humano');
+
+-- Inserir ODS da Agenda 2030 da ONU
+INSERT INTO "ODS" (descricao) VALUES
+('ODS 1 - Erradicação da pobreza'),
+('ODS 2 - Fome zero e agricultura sustentável'),
+('ODS 3 - Saúde e bem-estar'),
+('ODS 4 - Educação de qualidade'),
+('ODS 5 - Igualdade de gênero'),
+('ODS 6 - Água potável e saneamento'),
+('ODS 7 - Energia limpa e acessível'),
+('ODS 8 - Trabalho decente e crescimento econômico'),
+('ODS 9 - Indústria, inovação e infraestrutura'),
+('ODS 10 - Redução das desigualdades'),
+('ODS 11 - Cidades e comunidades sustentáveis'),
+('ODS 12 - Consumo e produção responsáveis'),
+('ODS 13 - Ação contra a mudança global do clima'),
+('ODS 14 - Vida na água'),
+('ODS 15 - Vida terrestre'),
+('ODS 16 - Paz, justiça e instituições eficazes'),
+('ODS 17 - Parcerias e meios de implementação');
