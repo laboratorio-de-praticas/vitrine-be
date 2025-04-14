@@ -2,6 +2,7 @@ import { Representantes } from "src/representante/representante.entity";
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { TipoEvento } from "./tipo.enum";
 import { StatusEvento } from "./status.enum";
+import { ProjetosEventos } from 'src/projetos-eventos/projetos-eventos.entity';
 
 @Entity('Eventos')
 export class Eventos{
@@ -37,4 +38,7 @@ export class Eventos{
 
   @OneToMany(() => Representantes, (representante) => representante.evento)
   representantes: Representantes[]
+
+  @OneToMany(() => ProjetosEventos, (proj) => proj.evento)
+projetosEventos: ProjetosEventos[];
 }

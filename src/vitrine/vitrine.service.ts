@@ -21,4 +21,25 @@ export class VitrineService {
       queryBuilder.leftJoinAndSelect("aluno.usuario", "usuario")
       return await queryBuilder.getMany();
     }
+
+    async findEventosExternos(dataInicio?: string): Promise<Eventos[]> {
+      const queryBuilder = this.eventoRepository.createQueryBuilder('evento');
+  
+      queryBuilder
+        .where('evento.tipo_evento = :tipo', { tipo: TipoEvento.EXTERNO })
+        .andWhere('evento.status_evento = :status', {
+          status: StatusEvento.ATIVO,
+        })
+        .leftJoinAndSelect('evento.projetosEventos', 'projetosEventos')
+        .orderBy('evento.data_inicio', 'DESC');
+  
+      if (dataInicio) {
+        queryBuilder.andWhere('evento.data_inicio >= :dataInicio', {
+          dataInicio: new Date(dataInicio),
+        });
+      }
+  
+      return await queryBuilder.getMany();
+    }
+    
 }
