@@ -34,7 +34,6 @@ CREATE TABLE "Projetos" (
   ativo BOOLEAN DEFAULT TRUE,
   data_criacao TIMESTAMP DEFAULT now(),
   data_alteracao TIMESTAMP DEFAULT now()
-
 );
 
 --- Tabela de Alunos

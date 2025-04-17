@@ -6,8 +6,8 @@ import { ProjetosEventos } from 'src/projetos-eventos/projetos-eventos.entity';
 
 @Entity('Eventos')
 export class Eventos{
-    @PrimaryGeneratedColumn()
-    id_evento: number
+  @PrimaryGeneratedColumn()
+  id_evento: number
 
   @Column({ length: 255 })
   nome_evento: String;

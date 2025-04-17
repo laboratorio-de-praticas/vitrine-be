@@ -4,6 +4,9 @@ INSERT INTO "Eventos" (id_evento, nome_evento, tipo_evento, descricao_evento, st
 VALUES
 (1, 'Representante de Classe', 'Interno', 'Evento para alunos DSM5', 'Ativo', 'DSM5', NOW(), NOW(), '2025-05-01', '2025-05-02'),
 (2, 'Representante de Classe', 'Interno', 'Evento para alunos GE1', 'Ativo', 'GE1', NOW(), NOW(), '2025-08-01', '2025-08-02');
+(3, 'Fatec Hub', 'Externo', 'Evento Fatec Hub', 'Ativo', null , NOW(), NOW(), '2025-08-01', '2025-08-02');
+(3, 'Fatexpo', 'Externo', 'Evento Fatexpo', 'Em_Preparo', null , NOW(), NOW(), '2025-08-01', '2025-08-02');
+
 
 INSERT INTO "Usuarios" (id, nome, data_alteracao, data_criacao, senha, email_institucional, tipo_usuario, status_usuario)
 VALUES
@@ -27,7 +30,17 @@ VALUES
 (3, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/3', 1, 3),
 (4, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/4', 1, 4);
 
+INSERT INTO "Projetos" (titulo, nome_equipe, descricao, foto_url, tlr, cea, turma)
+VALUES
+('Projeto A', 'Equipe Alpha', 'Aplicativo de gestão escolar', '/img/projetoA.jpg', 5, 4, 'DSM5'),
+('Projeto B', 'Equipe Beta', 'Plataforma de saúde mental', '/img/projetoB.jpg', 6, 5, 'DSM5'),
+('Projeto C', 'Equipe Gamma', 'Sistema de controle de estoque', '/img/projetoC.jpg', 4, 3, 'GE1');
 
+INSERT INTO "ProjetosEventos" (qrcode, fk_id_evento, fk_id_projeto)
+VALUES
+('https://evento.com/qrcode/evt3-proj1', 3, 1),
+('https://evento.com/qrcode/evt3-proj2', 3, 2),
+('https://evento.com/qrcode/evt4-proj3', 4, 3);
 
 INSERT INTO "Categorias" (descricao) VALUES
 ('Comunicação'),

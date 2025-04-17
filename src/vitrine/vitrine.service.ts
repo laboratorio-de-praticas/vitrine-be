@@ -24,14 +24,20 @@ export class VitrineService {
 
     async findEventosExternos(): Promise<Eventos[]> {
       const queryBuilder = this.eventoRepository.createQueryBuilder('evento');
-  
+
       queryBuilder
-        .where('evento.tipo_evento = :tipo', { tipo: TipoEvento.EXTERNO })
-        .andWhere('evento.status_evento = :status', {
-          status: StatusEvento.ATIVO,
-        })
         .leftJoinAndSelect('evento.projetosEventos', 'projetosEventos')
-        .orderBy('evento.data_inicio', 'DESC');
+        .where('evento.tipo_evento = :tipo', { tipo: TipoEvento.EXTERNO })
+        .andWhere('evento.data_inicio >= NOW()')
+        .orderBy(`
+          CASE 
+            WHEN evento.status_evento = :ativo THEN 0
+            ELSE 1
+          END
+        `, 'ASC')
+        .addOrderBy('evento.data_inicio', 'ASC') 
+        .setParameter('ativo', StatusEvento.ATIVO);
+      
   
   
       return await queryBuilder.getMany();
