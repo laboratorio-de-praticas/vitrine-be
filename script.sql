@@ -1,69 +1,115 @@
-INSERT INTO Projetos (id_projeto, titulo, descricao, data_criacao, data_alteracao)
+
+
+INSERT INTO "Eventos" (id_evento, nome_evento, tipo_evento, descricao_evento, status_evento, curso_semestre, data_alteracao, data_criacao, data_inicio, data_fim)
 VALUES
-(1, 'Projeto Alpha', 'Descrição do Projeto Alpha', NOW(), NOW()),
-(2, 'Projeto Beta', 'Descrição do Projeto Beta', NOW(), NOW()),
-(3, 'Projeto Gamma', 'Descrição do Projeto Gamma', NOW(), NOW());
+(1, 'Representante de Classe', 'Interno', 'Evento para alunos DSM5', 'Ativo', 'DSM5', NOW(), NOW(), '2025-05-01', '2025-05-02'),
+(2, 'Representante de Classe', 'Interno', 'Evento para alunos GE1', 'Ativo', 'GE1', NOW(), NOW(), '2025-08-01', '2025-08-02');
 
-
-INSERT INTO Usuarios (id, nome, data_alteracao, data_criacao, senha, email_institucional, tipo_usuario, status_usuario)
+INSERT INTO "Usuarios" (id, nome, data_alteracao, data_criacao, senha, email_institucional, tipo_usuario, status_usuario)
 VALUES
-(1, 'John Doe', NOW(), NOW(), 'hashed_password_example', 'john.doe@instituicao.com', 'Admin', 'Ativo'),
-(2, 'Jane Smith', NOW(), NOW(), 'another_hashed_password', 'jane.smith@instituicao.com', 'Atendente', 'Ativo'),
-(3, 'Alice Brown', NOW(), NOW(), 'third_hashed_password', 'alice.brown@instituicao.com', 'Atendente', 'Pendente');
+(1, 'Renato Hioji', NOW(), NOW(), '$2b$10$KRPrIGoPkM5RbtRrWdx.Au4frTROUrj9rdp6p8VPgLY2DG1mE72E.', 'renato_odake@fatec.sp.gov.br', 'Interno', 'Ativo'),
+(2, 'Saulo de Freitas', NOW(), NOW(), '$2b$10$KRPrIGoPkM5RbtRrWdx.Au4frTROUrj9rdp6p8VPgLY2DG1mE72E.', 'saulo@fatec.sp.gov.br', 'Interno', 'Ativo'),
+(3, 'Letícia Imasato', NOW(), NOW(), '$2b$10$KRPrIGoPkM5RbtRrWdx.Au4frTROUrj9rdp6p8VPgLY2DG1mE72E.', 'let_imasato@fatec.sp.gov.br', 'Interno', 'Ativo'),
+(4, 'Gabriel Rodriguez', NOW(), NOW(), '$2b$10$KRPrIGoPkM5RbtRrWdx.Au4frTROUrj9rdp6p8VPgLY2DG1mE72E.', 'gabriel_rod@fatec.sp.gov.br', 'Interno', 'Ativo'),
+(5, 'Administrador', NOW(), NOW(), '$2b$10$KRPrIGoPkM5RbtRrWdx.Au4frTROUrj9rdp6p8VPgLY2DG1mE72E.', 'admin@fatec.sp.gov.br', 'Admin', 'Ativo');;
 
-INSERT INTO Alunos (id_aluno, foto_url, data_criacao, data_alteracao, data_ingresso, curso_semestre, id_usuario)
+INSERT INTO "Alunos" (id_aluno, foto_url, data_criacao, data_alteracao, data_matricula, curso_semestre, fk_id_usuario)
 VALUES
-(1, 'https://example.com/photos/john_doe.jpg', NOW(), NOW(), '2025-01-15', 'DSM1', 1),
-(2, 'https://example.com/photos/jane_smith.jpg', NOW(), NOW(), '2025-02-20', 'DSM2', 2),
-(3, 'https://example.com/photos/alice_brown.jpg', NOW(), NOW(), '2025-03-10', 'DSM3', 3);
+(1, '/candi4.jpg', NOW(), NOW(), '2025-01-15', 'DSM5', 1),
+(2, '/candi2.jpg', NOW(), NOW(), '2025-01-15', 'DSM5', 2),
+(3, '/candi1.jpg', NOW(), NOW(), '2025-01-15', 'DSM5', 3),
+(4, '/candi3.jpg', NOW(), NOW(), '2025-01-15', 'DSM5', 4);
 
-INSERT INTO Eventos (id_evento, nome_evento, tipo_evento, descricao_evento, status_evento, curso_semestre, data_alteracao, data_criacao, data_inicio, data_fim)
+INSERT INTO "Representantes" (id_representante, data_alteracao, data_criacao, representantesituacao, qrcode, fk_id_evento, fk_id_aluno)
 VALUES
-(1, 'Evento A', 'Interno', 'Descrição do Evento A', 'Ativo', 'DSM1', NOW(), NOW(), '2025-05-01', '2025-05-02'),
-(2, 'Evento B', 'Externo', 'Descrição do Evento B', 'Em_Preparo', 'DSM2', NOW(), NOW(), '2025-06-01', '2025-06-02'),
-(3, 'Evento C', 'Interno', 'Descrição do Evento C', 'Ativo', 'DSM3', NOW(), NOW(), '2025-07-01', '2025-07-02');
-
-INSERT INTO Visitantes (id_visitante, nome_social, data_nascimento, celular, chave_acesso)
-VALUES
-(1, 'João Silva', '1985-07-15', '11987654321', '1234'),
-(2, 'Maria Oliveira', '1990-03-25', '21987654321', '5678'),
-(3, 'Carlos Souza', '2000-11-10', '31987654321', '4321');
-
-INSERT INTO Participantes (id_participante, avaliador, id_evento, id_aluno)
-VALUES
-(1, true, 1, 1),
-(2, false, 2, 2),
-(3, true, 3, 3);
-
-INSERT INTO Participantes (id_participante, avaliador, id_evento, id_visitante)
-VALUES
-(4, true, 1, 1),
-(5, false, 2, 2),
-(6, true, 3, 3);
-
-INSERT INTO Candidato (id, data_alteracao, data_criacao, situacao_candidato, qrcode, id_evento, id_aluno, id_projeto)
-VALUES
-(1, NOW(), NOW(), 'Ativo', 'qrcode-1', 1, 1, NULL),
-(2, NOW(), NOW(), 'Pendente', 'qrcode-2', 2, 2, NULL),
-(3, NOW(), NOW(), 'Ativo', 'qrcode-3', 3, 3, NULL);
-
-INSERT INTO Candidato (id, data_alteracao, data_criacao, situacao_candidato, qrcode, id_evento, id_aluno, id_projeto)
-VALUES
-(4, NOW(), NOW(), 'Ativo', 'qrcode-4', 1, NULL, 1), 
-(5, NOW(), NOW(), 'Pendente', 'qrcode-5', 2, NULL, 2), 
-(6, NOW(), NOW(), 'Ativo', 'qrcode-6', 3, NULL, 3); 
+(1, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/1', 1, 1),
+(2, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/2', 1, 2),
+(3, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/3', 1, 3),
+(4, NOW(), NOW(), 'Ativo', 'http://10.67.56.95:3000/votacao/interna/confirmacao/1/4', 1, 4);
 
 
 
-INSERT INTO Votos (id_evento, id_participante, id_candidato)
-VALUES
-(1, 1, 1),
-(1, 2, 2),
-(1, 3, 3),
-(2, 1, 2),
-(2, 2, 3),
-(2, 3, 1),
-(3, 1, 3),
-(3, 2, 1),
-(3, 3, 2),
-(1, 1, 2);
+INSERT INTO "Categorias" (descricao) VALUES
+('Comunicação'),
+('Cultura'),
+('Direitos humanos e justiça'),
+('Educação'),
+('Meio ambiente'),
+('Saúde'),
+('Tecnologia e Produção');
+
+-- Inserir Linhas de Extensão
+INSERT INTO "LinhaExtensao" (descricao) VALUES
+('Alfabetização, leitura e escrita'),
+('Artes cênicas'),
+('Artes integradas'),
+('Artes plásticas'),
+('Artes visuais'),
+('Comunicação estratégica'),
+('Desenvolvimento de produtos'),
+('Desenvolvimento regional'),
+('Desenvolvimento rural e questão agrária'),
+('Desenvolvimento tecnológico'),
+('Desenvolvimento urbano'),
+('Direitos individuais e coletivos'),
+('Educação profissional'),
+('Empreendedorismo'),
+('Emprego e renda'),
+('Endemias e epidemias'),
+('Divulgação científica e tecnológica'),
+('Esporte e lazer'),
+('Estilismo'),
+('Fármacos e medicamentos'),
+('Formação de professores'),
+('Gestão do trabalho'),
+('Gestão informacional'),
+('Gestão institucional'),
+('Gestão pública'),
+('Grupos sociais vulneráveis'),
+('Infância e adolescência'),
+('Inovação tecnológica'),
+('Jornalismo'),
+('Jovens e adultos'),
+('Línguas Estrangeiras'),
+('Metodologias e estratégias de ensino/aprendizagem'),
+('Mídia-artes'),
+('Mídias'),
+('Música'),
+('Organizações da sociedade civil e movimentos sociais e populares'),
+('Patrimônio cultural, histórico e natural'),
+('Pessoas com deficiências, incapacidades e necessidades especiais'),
+('Propriedade intelectual e patente'),
+('Questões ambientais'),
+('Recursos hídricos'),
+('Resíduos sólidos'),
+('Saúde animal'),
+('Saúde da família'),
+('Saúde e proteção no trabalho'),
+('Saúde humana'),
+('Segurança alimentar e nutricional'),
+('Segurança pública e defesa social'),
+('Tecnologia da informação'),
+('Terceira Idade'),
+('Turismo'),
+('Uso de drogas e dependência química'),
+('Desenvolvimento humano');
+
+-- Inserir ODS da Agenda 2030 da ONU
+INSERT INTO "ODS" (descricao) VALUES
+('ODS 1 - Erradicação da pobreza'),
+('ODS 2 - Fome zero e agricultura sustentável'),
+('ODS 3 - Saúde e bem-estar'),
+('ODS 4 - Educação de qualidade'),
+('ODS 5 - Igualdade de gênero'),
+('ODS 6 - Água potável e saneamento'),
+('ODS 7 - Energia limpa e acessível'),
+('ODS 8 - Trabalho decente e crescimento econômico'),
+('ODS 9 - Indústria, inovação e infraestrutura'),
+('ODS 10 - Redução das desigualdades'),
+('ODS 11 - Cidades e comunidades sustentáveis'),
+('ODS 12 - Consumo e produção responsáveis'),
+('ODS 13 - Ação contra a mudança global do clima'),
+('ODS 14 - Vida na água'),
+('ODS 15 - Vida terrestre'),
+('ODS 16 - Paz, justiça e instituições eficazes'),
+('ODS 17 - Parcerias e meios de implementação');

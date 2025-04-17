@@ -8,8 +8,7 @@ dotenv.config();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const VITRINE_FE_PORT = process.env.VITRINE_FE_PORT || '3000';
-  const allowedOrigin = `http://127.0.0.1:${VITRINE_FE_PORT}`;
+  const allowedOrigin = process.env.FRONT_END_HOST;
 
   app.enableCors({
     origin: allowedOrigin,
@@ -27,6 +26,6 @@ async function bootstrap() {
   const documentFactory = () => SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, documentFactory);
 
-  await app.listen(3000);
+  await app.listen(process.env.VITRINE_BE_PORT || 5001);
 }
 bootstrap();
