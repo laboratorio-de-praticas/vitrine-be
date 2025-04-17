@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  backend:
+    build: .
+    ports:
+      - "${VITRINE_BE_PORT:-3001}:${VITRINE_BE_PORT:-3001}"
+    environment:
+      - PORT=${VITRINE_BE_PORT:-3001}
+    volumes:
+      - .:/app
+      - /app/node_modules
+    restart: unless-stopped
