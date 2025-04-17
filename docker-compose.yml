@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  db:
+    build: .
+    ports:
+      - "${db_port}:${db_port}"
+    environment:
+      POSTGRES_USER: "${db_user}"
+      POSTGRES_PASSWORD: "${db_password}"
+      POSTGRES_DB: "${db_name}"
+      PGPORT: "${db_port}"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data #possivelmente trocar este address futuramente
+
+volumes:
+  postgres_data:
