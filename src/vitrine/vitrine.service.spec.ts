@@ -36,7 +36,7 @@ describe('VitrineService', () => {
   });
 
   it('findTv deve retornar uma lista de eventos', async () => {
-    const result = await service.findTv({} as any); // passa um mock de usuário
+    const result = await service.findTv();
     expect(result).toEqual([]);
   });
 });

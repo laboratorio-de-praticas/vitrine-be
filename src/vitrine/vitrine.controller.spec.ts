@@ -18,10 +18,10 @@ const eventosMock: Eventos[] = [
       data_criacao: new Date(),
       data_inicio: new Date(),
       data_fim: new Date(),
-      candidatos: [],
-      participantes: [],
-      votos: [],
+      representantes: [],
+      projetosEventos: [],
     } as Eventos,
+
   ];
   
 
@@ -47,13 +47,11 @@ describe('VitrineController', () => {
   });
 
   it('findTv deve chamar service.findTv e retornar eventos', async () => {
-    const mockUser = { id: 1 } as Usuarios;
-    const req = { user: mockUser };
   
-    const result = await controller.findTv(req);
+    const result = await controller.findTv();
   
-    expect(service.findTv).toHaveBeenCalledWith(mockUser);
-    expect(result).toEqual(eventosMock); // ← aqui!
+    expect(service.findTv).toHaveBeenCalledWith();
+    expect(result).toEqual(eventosMock); 
   });
   
 });

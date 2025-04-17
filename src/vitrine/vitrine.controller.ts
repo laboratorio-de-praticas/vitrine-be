@@ -18,7 +18,7 @@ export class VitrineController {
 
     @Get("/tv")
     //@Roles("Admin")
-    async findTv(@Request() req): Promise<Eventos[]> {
+    async findTv(): Promise<Eventos[]> {
         return await this.vitrineService.findTv();
     }
 
