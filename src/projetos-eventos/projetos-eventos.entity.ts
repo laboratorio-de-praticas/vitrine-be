@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Eventos } from 'src/evento/evento.entity';
 
 @Entity('ProjetosEventos')
@@ -7,9 +7,10 @@ export class ProjetosEventos {
   id_projetos_eventos: number;
 
   @Column()
-  qrCode: string;
+  qrcode: string;
 
   @ManyToOne(() => Eventos, (evento) => evento.projetosEventos)
+  @JoinColumn({ name: 'fk_id_evento' })
   evento: Eventos;
 }
 

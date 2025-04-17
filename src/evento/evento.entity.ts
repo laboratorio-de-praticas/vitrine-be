@@ -40,5 +40,5 @@ export class Eventos{
   representantes: Representantes[]
 
   @OneToMany(() => ProjetosEventos, (proj) => proj.evento)
-projetosEventos: ProjetosEventos[];
+  projetosEventos: ProjetosEventos[];
 }

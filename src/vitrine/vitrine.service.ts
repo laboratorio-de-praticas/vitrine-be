@@ -22,7 +22,7 @@ export class VitrineService {
       return await queryBuilder.getMany();
     }
 
-    async findEventosExternos(dataInicio?: string): Promise<Eventos[]> {
+    async findEventosExternos(): Promise<Eventos[]> {
       const queryBuilder = this.eventoRepository.createQueryBuilder('evento');
   
       queryBuilder
@@ -33,11 +33,6 @@ export class VitrineService {
         .leftJoinAndSelect('evento.projetosEventos', 'projetosEventos')
         .orderBy('evento.data_inicio', 'DESC');
   
-      if (dataInicio) {
-        queryBuilder.andWhere('evento.data_inicio >= :dataInicio', {
-          dataInicio: new Date(dataInicio),
-        });
-      }
   
       return await queryBuilder.getMany();
     }

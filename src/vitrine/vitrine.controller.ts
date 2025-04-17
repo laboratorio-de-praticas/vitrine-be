@@ -23,7 +23,7 @@ export class VitrineController {
     }
 
     @Get('/eventos-externos')
-    async getEventosExternos(@Query('dataInicio') dataInicio?: string): Promise<Eventos[]> {
-    return await this.vitrineService.findEventosExternos(dataInicio);
+    async getEventosExternos(): Promise<Eventos[]> {
+    return await this.vitrineService.findEventosExternos();
 }
 }
