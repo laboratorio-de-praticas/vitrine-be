@@ -75,11 +75,11 @@ PORT=5001
 NODE_ENV=development
 
 ### Banco de dados
-DB_HOST=localhost
-DB_PORT=5432
-DB_USERNAME=postgres
-DB_PASSWORD=postgres
-DB_DATABASE=vitrine
+DB_HOST=nome_do_host
+DB_PORT=porta
+DB_USERNAME=nome_do-usuario
+DB_PASSWORD=senha
+DB_DATABASE=nome_do_banco
 
 ### Frontend 
 FRONT_END_HOST=http://localhost:3001
