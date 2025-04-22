@@ -1,61 +1,90 @@
 # Laboratório de Práticas: _Vitrine - Backend_
 
 ## Descrição
-API desenvolvida com o framework Nest.js que visa gerenciar requisições HTTP com o objetivo de APRESENTAR estudantes que estão concorrendo à presidência de suas respectivas classes. Através de QR codes únicos cada eleitor é encaminhado para a página de votação correspondente ao candidato escolhido, garantindo transparência e acessibilidade durante o processo eleitoral da Fatec. Integra o _Sistema de Votação para a Faculdade_.
+API desenvolvida com Nest.js que gerencia o processo eleitoral para escolha de representantes de classe na Fatec. Através de QR codes únicos cada eleitor é encaminhado para a página de votação correspondente ao candidato escolhido, garantindo transparência e acessibilidade durante o processo eleitoral da Fatec. Integra o _Sistema de Votação para a Faculdade_.
 
-## Requisitos do Sistema
-- Node.js: v22.x (recomendado com base nas dependências)
-- npm: v10.x (recomendado)
-- NestJS: v11.0.0 (@nestjs/cli v11.0.0)
-- reflect-metadata (v0.2.2): Biblioteca para suporte a metadados e decoradores
-- rxjs (v7.8.1): Biblioteca para programação reativa
+### O sistema oferece:
 
-## Bibliotecas Utilizadas
-- **@nestjs/common (v11.0.1)**: Framework principal do NestJS que fornece decoradores, filtros, pipes e outras funcionalidades essenciais
-- **@nestjs/config (v4.0.1)**: Módulo de configuração para gerenciamento de variáveis de ambiente
-- **@nestjs/core (v11.0.1)**: Núcleo do framework NestJS
-- **@nestjs/platform-express (v11.0.1)**: Adaptador para o framework Express
-- **reflect-metadata (v0.2.2)**: Biblioteca para suporte a metadados e decoradores
-- **rxjs (v7.8.1)**: Biblioteca para programação reativa
+- Apresentação de candidatos através de vitrine digital
 
-## Ferramentas de Desenvolvimento
+- Geração de QR codes únicos para cada candidato
 
-- **TypeScript (v5.7.3)**: Linguagem que adiciona tipagem estática ao JavaScript, melhorando a segurança e a manutenção do código
-- **Jest (v29.7.0)**: Framework de testes JavaScript com foco em simplicidade e suporte para testes - unitários e de integração
-- **Prettier (v3.4.2)**: Formatador de código opinativo que garante consistência no estilo de código em todo o projeto
-- **ESLint (v9.18.0)**: Ferramenta de análise estática para identificar padrões problemáticos no código TypeScript
+- Integração segura com o sistema de votação
+
+- Autenticação e autorização de eleitores
+
+- Dashboard administrativo para acompanhamento
+
+## Requisitos Técnicos
+
+### Ambiente de Desenvolvimento
+- Node.js: v22.x (LTS recomendado)
+
+- npm: v10.x ou Yarn
+
+- PostgreSQL: v16+ (banco de dados principal)
+
+- NestJS CLI: v11.0.0
+
+- TypeScript: v5.7.3
+
+## Dependências Principais
+
+### Backend:
+
+- @nestjs/common: v11.0.1
+
+- @nestjs/jwt: v11.0.0 (autenticação)
+
+- @nestjs/typeorm: v11.0.0 (ORM)
+
+- typeorm: v0.3.21
+
+- pg: v8.14.1 (driver PostgreSQL)
+
+- @nestjs/swagger: v11.1.0 (documentação API)
+
+## Segurança
+- Autenticação JWT (JSON Web Tokens)
+
+- Criptografia de senhas com bcrypt
+
+- Proteção contra CSRF
+
+- Rate limiting para endpoints públicos
+
+- Validação de entrada de dados com class-validator
 
 ## Configuração do Ambiente
-
-### Instalação
-1. Clone o repositório:
+Instalação
 ```bash
 git clone https://github.com/laboratorio-de-praticas/vitrine-be.git
+
 cd vitrine-be
-```
 
-2. Instale as dependências:
-```bash
 npm install
-# ou
-yarn install
-```
 
-3. Configure as variáveis de ambiente:
-```bash
 cp .env.example .env
-# Edite o arquivo .env com suas configurações locais
 ```
 
-### Execução
-Para iniciar o servidor em modo de desenvolvimento:
+## Variáveis de Ambiente (.env)
+
+### Configurações do servidor
 ```bash
-npm run start:dev
-# ou
-yarn start:dev
+PORT=5001
+NODE_ENV=development
+
+### Banco de dados
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_DATABASE=vitrine
+
+### Frontend 
+FRONT_END_HOST=http://localhost:3001
 ```
 
-O servidor estará rodando em `http://localhost:3000`
 
 ## Scripts Disponíveis
 - `npm run build`: Compila o projeto usando o Nest
@@ -71,23 +100,95 @@ O servidor estará rodando em `http://localhost:3000`
 - `npm run test:debug`: Executa os testes em modo de depuração
 - `npm run test:e2e`: Executa os testes end-to-end
 
-## Estrutura do Projeto (placeholder)
+## Estrutura do Projeto 
 ```
 src/
-├── controllers/     # Controladores da aplicação
-├── dto/             # Objetos de transferência de dados
-├── entities/        # Entidades do banco de dados
-├── modules/         # Módulos NestJS
-├── providers/       # Provedores de serviços
-├── middlewares/     # Middlewares personalizados
-├── repositories/    # Repositórios para acesso a dados
-├── services/        # Serviços de negócios
-├── utils/           # Funções utilitárias
-└── main.ts          # Ponto de entrada da aplicação
+├── auth/               # Autenticação e autorização
+│   ├── strategies/     # Estratégias JWT
+│   └── guards/         # Guards de proteção
+├── candidates/         # Gestão de candidatos
+├── elections/          # Processos eleitorais
+├── qr-codes/           # Geração e validação de QR codes
+├── users/              # Gestão de usuários (admin/eleitores)
+├── shared/             # Recursos compartilhados
+│   ├── exceptions/     # Filtros de exceção
+│   ├── interceptors/   # Interceptores
+│   └── decorators/     # Decoradores customizados
+├── app.module.ts       # Módulo raiz
+└── main.ts             # Ponto de entrada
 ```
 
-## API Endpoints
-[EM DESENVOLVIMENTO]
+## Integração Frontend
+O frontend (vitrine-fe) consomeia com:
+
+- Autenticação: Login via JWT
+
+- Listagem de Candidatos: GET /api/candidates
+
+- Geração de QR Codes: POST /api/qr-codes/generate
+
+- Validação de Votos: POST /api/votes/validate
+
+## Endpoints Principais
+### Autenticação
+Método POST
+→ Endpoint: /auth/login
+→ Descrição: Login de administradores
+
+Método POST
+→ Endpoint: /auth/refresh
+→ Descrição: Renovação de token
+
+
+### Candidatos
+Método GET
+→ Endpoint: /candidates
+→ Descrição: Lista todos candidatos
+→ Autenticação: Pública
+
+Método POST
+→ Endpoint: /candidates
+→ Descrição: Cria novo candidato
+→ Autenticação: Admin (JWT)
+
+Método PATCH
+→ Endpoint: /candidates/:id
+→ Descrição: Atualiza candidato específico
+→ Autenticação: Admin (JWT)
+
+### QR Codes
+Método POST
+→ Endpoint: /qr-codes/generate
+→ Descrição: Gera QR code único para um candidato
+→ Autenticação: Admin (JWT)
+
+Método GET
+→ Endpoint: /qr-codes/validate/:code
+→ Descrição: Valida QR code para processo de votação
+→ Autenticação: Sistema de Votação (API Key)
+
+## Segurança
+### Camadas de Proteção
+- Helmet: Headers de segurança HTTP
+
+- CORS: Restrito ao domínio do frontend
+
+- Rate Limiting: 100 requisições/minuto
+
+- Validators: DTOs com class-validator
+
+
+## Testes
+- Cobertura garantida por:
+
+- Testes unitários (Jest)
+
+- Testes de integração
+
+- Testes E2E com Supertest
+```bash
+npm run test:cov  # Gera relatório de cobertura
+```
 
 ## Licença
 MIT License
