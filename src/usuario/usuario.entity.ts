@@ -16,9 +16,6 @@ export class Usuarios{
   @Column()
   data_criacao: Date;
 
-  @Column({ length: 400 })
-  senha: String;
-
   @Column({ length: 250 })
   email_institucional: String;
 

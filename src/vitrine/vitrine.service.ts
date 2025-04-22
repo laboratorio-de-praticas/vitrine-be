@@ -3,6 +3,7 @@ import { TipoEvento } from 'src/evento/tipo.enum';
 import { Inject, Injectable} from '@nestjs/common';
 import { Eventos } from '../evento/evento.entity';
 import { Repository } from 'typeorm';
+import { RepresentanteSituacao } from 'src/representante/representante.enum';
 
 @Injectable()
 export class VitrineService {
@@ -19,6 +20,11 @@ export class VitrineService {
       queryBuilder.leftJoinAndSelect("evento.representantes", "representantes");
       queryBuilder.leftJoinAndSelect("representantes.aluno", "aluno");
       queryBuilder.leftJoinAndSelect("aluno.usuario", "usuario")
+      queryBuilder.andWhere("representantes.representantesituacao = :situacao", {
+        situacao: RepresentanteSituacao.ATIVO,
+      });
+
+      
       return await queryBuilder.getMany();
     }
 
@@ -27,6 +33,7 @@ export class VitrineService {
 
       queryBuilder
         .leftJoinAndSelect('evento.projetosEventos', 'projetosEventos')
+        .leftJoinAndSelect('projetosEventos.projeto', 'projeto')
         .where('evento.tipo_evento = :tipo', { tipo: TipoEvento.EXTERNO })
         .andWhere('evento.data_inicio >= NOW()')
         .orderBy(`

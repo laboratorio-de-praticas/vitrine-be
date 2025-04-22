@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Eventos } from 'src/evento/evento.entity';
+import { Projetos } from 'src/projeto/projeto.entity';
 
 @Entity('ProjetosEventos')
 export class ProjetosEventos {
@@ -12,5 +13,9 @@ export class ProjetosEventos {
   @ManyToOne(() => Eventos, (evento) => evento.projetosEventos)
   @JoinColumn({ name: 'fk_id_evento' })
   evento: Eventos;
+
+  @ManyToOne(() => Projetos, (projeto) => projeto.projetosEventos)
+  @JoinColumn({name: "fk_id_projeto"})
+  projeto: Projetos;
 }
 
