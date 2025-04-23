@@ -24,8 +24,14 @@ export class VitrineService {
         situacao: RepresentanteSituacao.ATIVO,
       });
 
-      
-      return await queryBuilder.getMany();
+      const eventos = await queryBuilder.getMany();
+      const filteredEventos = eventos.filter(evento => {
+        const activeRepresentantes = evento.representantes.filter(
+          rep => rep.representante_situacao === RepresentanteSituacao.ATIVO
+        );
+        return activeRepresentantes.length >= 2;
+      });
+      return filteredEventos;
     }
 
     async findEventosExternos(): Promise<Eventos[]> {
