@@ -41,7 +41,6 @@ export class VitrineService {
         .leftJoinAndSelect('evento.projetosEventos', 'projetosEventos')
         .leftJoinAndSelect('projetosEventos.projeto', 'projeto')
         .where('evento.tipo_evento = :tipo', { tipo: TipoEvento.EXTERNO })
-        .andWhere('evento.data_inicio >= NOW()')
         .orderBy(`
           CASE 
             WHEN evento.status_evento = :ativo THEN 0
