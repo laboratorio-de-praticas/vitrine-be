@@ -1,19 +1,19 @@
 # Laboratório de Práticas: _Vitrine - Backend_
 
 ## Descrição
-API desenvolvida com Nest.js que gerencia o processo eleitoral para escolha de representantes de classe na Fatec. Através de QR codes únicos cada eleitor é encaminhado para a página de votação correspondente ao candidato escolhido, garantindo transparência e acessibilidade durante o processo eleitoral da Fatec. Integra o _Sistema de Votação para a Faculdade_.
+API desenvolvida com Nest.js que gerencia a apresentação de candidatos para representante e de Projetos da Fatec Registro. Através de QR codes únicos cada voto é encaminhado para a página correspondente ao candidato escolhido, garantindo transparência e acessibilidade durante o processo eleitoral da Faculdade.
 
 ### O sistema oferece:
 
-- Apresentação de candidatos através de vitrine digital
+- Apresentação de candidatos e projetos através de vitrine digital
 
-- Geração de QR codes únicos para cada candidato
+- Geração de QR codes únicos para cada representate
 
 - Integração segura com o sistema de votação
 
-- Autenticação e autorização de eleitores
+- Busca de eventos externos
 
-- Dashboard administrativo para acompanhamento
+- Consumo de informações providos pelo CMS através do Banco de Dados
 
 ## Requisitos Técnicos
 
@@ -46,14 +46,6 @@ API desenvolvida com Nest.js que gerencia o processo eleitoral para escolha de r
 
 ## Segurança
 - Autenticação JWT (JSON Web Tokens)
-
-- Criptografia de senhas com bcrypt
-
-- Proteção contra CSRF
-
-- Rate limiting para endpoints públicos
-
-- Validação de entrada de dados com class-validator
 
 ## Configuração do Ambiente
 Instalação
@@ -103,112 +95,62 @@ FRONT_END_HOST=http://localhost:3001
 ## Estrutura do Projeto 
 ```
 src/
-├── auth/               # Autenticação e autorização
-│   ├── strategies/     # Estratégias JWT
-│   └── guards/         # Guards de proteção
-├── candidates/         # Gestão de candidatos
-├── elections/          # Processos eleitorais
-├── qr-codes/           # Geração e validação de QR codes
-├── users/              # Gestão de usuários (admin/eleitores)
-├── shared/             # Recursos compartilhados
-│   ├── exceptions/     # Filtros de exceção
-│   ├── interceptors/   # Interceptores
-│   └── decorators/     # Decoradores customizados
-├── app.module.ts       # Módulo raiz
-└── main.ts             # Ponto de entrada
+├── controllers/     # Controladores da aplicação
+├── dto/             # Objetos de transferência de dados
+├── entities/        # Entidades do banco de dados
+├── modules/         # Módulos NestJS
+├── providers/       # Provedores de serviços
+├── middlewares/     # Middlewares personalizados
+├── repositories/    # Repositórios para acesso a dados
+├── services/        # Serviços de negócios
+├── utils/           # Funções utilitárias
+└── main.ts          # Ponto de entrada da aplicação
 ```
 
-## Integração Frontend
-O frontend (vitrine-fe) consomeia com:
-
-- Autenticação: Login via JWT
-
-- Listagem de Candidatos: GET /api/candidates
-
-- Geração de QR Codes: POST /api/qr-codes/generate
-
-- Validação de Votos: POST /api/votes/validate
-
 ## Endpoints Principais
-### Autenticação
-Método POST
-→ Endpoint: /auth/login
-→ Descrição: Login de administradores
 
-Método POST
-→ Endpoint: /auth/refresh
-→ Descrição: Renovação de token
-
-
-### Candidatos
+### Representantes
 Método GET
-→ Endpoint: /candidates
-→ Descrição: Lista todos candidatos
-→ Autenticação: Pública
-
-Método POST
-→ Endpoint: /candidates
-→ Descrição: Cria novo candidato
-→ Autenticação: Admin (JWT)
-
-Método PATCH
-→ Endpoint: /candidates/:id
-→ Descrição: Atualiza candidato específico
-→ Autenticação: Admin (JWT)
-
-### QR Codes
-Método POST
-→ Endpoint: /qr-codes/generate
-→ Descrição: Gera QR code único para um candidato
-→ Autenticação: Admin (JWT)
-
-Método GET
-→ Endpoint: /qr-codes/validate/:code
-→ Descrição: Valida QR code para processo de votação
-→ Autenticação: Sistema de Votação (API Key)
+→ Endpoint: /v1/vitrine/tv
+→ Descrição: Lista todos os eventos internos ativos no momento, com o número de representantes >=2
+→ Autenticação: Nível Administrativo
 
 ## Segurança
 ### Camadas de Proteção
-- Helmet: Headers de segurança HTTP
 
 - CORS: Restrito ao domínio do frontend
-
-- Rate Limiting: 100 requisições/minuto
-
-- Validators: DTOs com class-validator
-
 
 ## Testes
 - Cobertura garantida por:
 
 - Testes unitários (Jest)
 
-- Testes de integração
-
-- Testes E2E com Supertest
 ```bash
 npm run test:cov  # Gera relatório de cobertura
+<<<<<<< HEAD
+```
+=======
 ```
 
-## Licença
-MIT License
 
-Copyright (c) 2025 Projeto Vitrine
+## Organograma - Vitrine Fatec
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+![1](/imgs/diagramvitrine.drawio.png)
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+## Agentes Envolvidos
+
+Agente de Frontend: React/Next.js — interface inicial e verificação do token.
+
+Agente de Backend: NestJS — controla a lógica de autenticação, busca de dados e eventos.
+
+Agente de Banco de Dados: PostgreSQL via TypeORM.
+
+Agente de Segurança (Backend): JWT — checagem e validação do token.
+
+Agente de CMS Backend: CMS que alimenta os dados exibidos na vitrine.
+
+Agente de Frontend TV/Votação:
+- TV: mostra candidatos e QRCode.
+- Votação: exibe dados dos candidatos redirecionados pelo QR.
+>>>>>>> 9a1b2c6 (Readme com organograma)
