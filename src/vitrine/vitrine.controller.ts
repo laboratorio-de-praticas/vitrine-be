@@ -9,15 +9,15 @@ import { VitrineService } from './vitrine.service';
 import { Query } from '@nestjs/common';
 import { Eventos } from 'src/evento/evento.entity';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { AuthGuard } from 'src/auth/auth.guard';
 
 @ApiBearerAuth()
 @Controller('v1/vitrine')
-//@UseGuards(AuthGuard)
+@UseGuards(AuthGuard)
 export class VitrineController {
   constructor(private readonly vitrineService: VitrineService) {}
 
     @Get("/tv")
-    //@Roles("Admin")
     async findTv(): Promise<Eventos[]> {
         return await this.vitrineService.findTv();
     }
