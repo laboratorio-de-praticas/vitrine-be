@@ -7,7 +7,7 @@ VALUES
 (5, 'Representante de Classe', 'Interno', 'Evento para alunos ADS', 'Ativo', 'ADS1', NOW(), NOW(), '2025-01-01', '2025-05-20');
 
 SELECT * FROM "Eventos";
-A
+
 INSERT INTO "Usuarios" (id, nome, data_alteracao, data_criacao, senha, email_institucional, tipo_usuario, status_usuario)
 VALUES
 (1, 'Renato Hioji', NOW(), NOW(), '$2b$10$KRPrIGoPkM5RbtRrWdx.Au4frTROUrj9rdp6p8VPgLY2DG1mE72E.', 'renato_odake@fatec.sp.gov.br', 'Interno', 'Ativo'),
