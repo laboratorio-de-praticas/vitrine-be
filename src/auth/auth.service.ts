@@ -1,5 +1,6 @@
 import { Injectable, HttpException, HttpStatus, UnauthorizedException } from '@nestjs/common';
 import * as dotenv from 'dotenv';
+import { TipoUsuario } from 'src/usuario/tipo.enum';
 
 dotenv.config();
 
@@ -13,7 +14,7 @@ export class AuthService {
 
   async getProfile(token: string): Promise<any> {
     try {
-      const response = await fetch(`${this.authUrl}/profile`, {
+      const response = await fetch(`${this.authUrl}/v1/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -28,9 +29,9 @@ export class AuthService {
     }
   }
 
-  async getUserRole(token: string): Promise<any> {
+  async getUserRole(token: string): Promise<{tipo_usuario: TipoUsuario}> {
     try {
-      const response = await fetch(`${this.authUrl}/users/role`, {
+      const response = await fetch(`${this.authUrl}/v1/users/role`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -57,7 +58,7 @@ export class AuthService {
   async isAdmin(token: string): Promise<boolean> {
     try {
       const roleData = await this.getUserRole(token);
-      return roleData.tipo_usuario === 'Admin' || roleData.tipo_usuario === 'ADMINISTRADOR';
+      return roleData.tipo_usuario === TipoUsuario.ADMINISTRADOR;
     } catch (error) {
       return false;
     }
