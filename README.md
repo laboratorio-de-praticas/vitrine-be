@@ -1,9 +1,18 @@
-# Laboratório de Práticas: _Vitrine - Backend_
+<p align="center">
+  <a href="https://fatecregistro.cps.sp.gov.br/" target="blank"><img src="https://bkpsitecpsnew.blob.core.windows.net/uploadsitecps/sites/40/2024/03/fatec_registro.png" width="300" alt="Fatec Logo" /></a>
+</p>
 
-## Descrição
+  <p align="center">Laboratório de Práticas é de realização da <a href="https://fatecregistro.cps.sp.gov.br/" target="_blank">Fatec Registro</a> com o objetivo de acrescentar aos alunos um portfólio, e não menos importante, experiência!</p>
+    <p align="center">
+<a href="https://www.instagram.com/fatecregistro/" target="_blank"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Fatec Registro Instagram" /></a>
+</p>
+
+<h1 align="center">Vitrine - BackEnd</h1>
+
+## 📋 Descrição
 API desenvolvida com Nest.js que gerencia a apresentação de candidatos para representante e de Projetos da Fatec Registro. Através de QR codes únicos cada voto é encaminhado para a página correspondente ao candidato escolhido, garantindo transparência e acessibilidade durante o processo eleitoral da Faculdade.
 
-### O sistema oferece:
+### ⚙ O sistema oferece:
 
 - Apresentação de candidatos e projetos através de vitrine digital
 
@@ -15,18 +24,18 @@ API desenvolvida com Nest.js que gerencia a apresentação de candidatos para re
 
 - Consumo de informações providos pelo CMS através do Banco de Dados
 
-## Requisitos Técnicos
+## 🛠 Requisitos Técnicos
 
 ### Ambiente de Desenvolvimento
-- Node.js: v22.x (LTS recomendado)
+- [![Node.js](https://img.shields.io/badge/node.js-339933?style=for-the-badge&logo=Node.js&logoColor=white)](https://nodejs.org/pt): v22.x (LTS recomendado)
 
-- npm: v10.x ou Yarn
+- [![NPM](https://img.shields.io/badge/NPM-2D3136.svg?style=for-the-badge&logo=npm&logoColor=white)](https://www.npmjs.com/): v10.x ou Yarn
 
-- PostgreSQL: v16+ (banco de dados principal)
+- [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=flat-square&logo=postgresql&logoColor=white)](https://www.postgresql.org/): v16+ (banco de dados principal)
 
-- NestJS CLI: v11.0.0
+- [![Nest.js](https://img.shields.io/badge/-NestJs-ea2845?style=flat-square&logo=nestjs&logoColor=white)](https://nestjs.com/): v11.0.0
 
-- TypeScript: v5.7.3
+- [![Typescript](https://img.shields.io/badge/TypeScript-007ACC?style=flat-square&logo=typescript&logoColor=white)](https://www.typescriptlang.org/): v5.7.3
 
 ## Dependências Principais
 
@@ -44,10 +53,12 @@ API desenvolvida com Nest.js que gerencia a apresentação de candidatos para re
 
 - @nestjs/swagger: v11.1.0 (documentação API)
 
-## Segurança
-- Autenticação JWT (JSON Web Tokens)
 
-## Configuração do Ambiente
+## 🏠 Configuração do Ambiente
+
+> [!IMPORTANT]
+> Previamente a iniciação do projeto, é preciso realizar algumas configurações.
+
 Instalação
 ```bash
 git clone https://github.com/laboratorio-de-praticas/vitrine-be.git
@@ -59,9 +70,13 @@ npm install
 cp .env.example .env
 ```
 
-## Variáveis de Ambiente (.env)
+## 🔀 Variáveis de Ambiente (.env)
 
 ### Configurações do servidor
+
+>[!NOTE]
+> Necessário verificar se na raiz do projeto um arquivo .env (ponto + env) está presente e com as seguintes chaves:
+
 ```bash
 PORT=5001
 NODE_ENV=development
@@ -78,7 +93,7 @@ FRONT_END_HOST=http://localhost:3001
 ```
 
 
-## Scripts Disponíveis
+## 📋 Scripts Disponíveis
 - `npm run build`: Compila o projeto usando o Nest
 - `npm run format`: Formata o código usando Prettier
 - `npm run start`: Inicia o servidor em modo normal
@@ -92,7 +107,7 @@ FRONT_END_HOST=http://localhost:3001
 - `npm run test:debug`: Executa os testes em modo de depuração
 - `npm run test:e2e`: Executa os testes end-to-end
 
-## Estrutura do Projeto 
+## 🗂️ Estrutura do Projeto 
 ```
 src/
 ├── controllers/     # Controladores da aplicação
@@ -115,7 +130,9 @@ Método GET
 → Descrição: Lista todos os eventos internos ativos no momento, com o número de representantes >=2
 → Autenticação: Nível Administrativo
 
-## Segurança
+## 🔒 Segurança
+- [![Autenticação JWT](https://img.shields.io/badge/JWT-black?style=plastic&logo=JSON%20web%20tokens)](https://jwt.io/): (JSON Web Tokens)
+
 ### Camadas de Proteção
 
 - CORS: Restrito ao domínio do frontend
@@ -130,7 +147,10 @@ npm run test:cov  # Gera relatório de cobertura
 ```
 
 
-## Diagramação - Vitrine 
+## 📖 Diagramação - Vitrine 
+
+>[!NOTE]
+> Organograma Documentado de todas as Requisições e Redirecionamentos da Sessão de Vitrine.
 
 ```mermaid
 flowchart TD
